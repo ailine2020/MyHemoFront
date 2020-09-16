@@ -1,6 +1,8 @@
 <template>
   <header id="nav-logo">
-    <img src="../../assets/LOGO_final.svg" alt="logo" class="logo" />
+    <figure id="logo">
+      <img src="../../assets/LOGO_final.svg" alt="logo" class="logo" />
+    </figure>
     <nav class="nav-header">
       <router-link to="/">
         <span class="icons">
@@ -20,10 +22,13 @@
         </span>
       </router-link>
 
-      <router-link to="se-connecter">
+      <router-link to="signin">
         <span class="icons">
           <font-awesome-icon icon="user-circle" />
         </span>
+      </router-link>
+      <router-link to="/signin">
+        <ButtonSignout v-if="isSignedIn" />
       </router-link>
       <router-link to="dashboard">
         <span class="icons">
@@ -36,29 +41,50 @@
 </template>
 
 <script>
+import auth from "@/auth";
 import Burger from "@/components/header/Burger.vue";
+import ButtonSignout from "@/components/header/ButtonSignout.vue";
 
 export default {
   name: "Nav",
-  components:{Burger}
+  components: { Burger, ButtonSignout },
+  data() {
+    return {
+      auth
+    };
+  },
+  computed: {
+    isSignedIn() {
+      return Boolean(this.$store.getters["user/current"]);
+    }
+  }
 };
 </script>
 
 <style>
 #nav-logo {
-  background: rgba(40, 40, 40, 0.1);
+  /* background: rgba(40, 40, 40, 0.1); */
+  background: #91c0bb;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  width: 100%;
 }
 
 .icons {
-  color: #91c0bb;
+  color: #2c3e50;
   font-size: 2.5rem;
   margin-right: 3.75rem;
 }
 .logo {
   width: 200px;
   height: 200px;
+  margin-left: 80px;
+}
+
+@media screen and (max-width: 979px) {
+  .nav-header {
+    display: none;
+  }
 }
 </style>

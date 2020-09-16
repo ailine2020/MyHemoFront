@@ -1,5 +1,5 @@
 <template>
-  <section class="main-pc">
+  <section id="main-pc">
     <img class="pixMobile" src="../../assets/mobileAplati.jpg" alt="mobile" />
     <article>
       <h2 class="title-main">Lorem ipsum dolor sit amet consectetur</h2>
@@ -22,7 +22,7 @@ export default {
 .main-pc {
   display: flex;
   flex-wrap: nowrap;
-  margin-bottom: 100px;
+  /* margin-bottom: 100px; */
 }
 
 .pixMobile {

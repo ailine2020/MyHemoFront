@@ -32,6 +32,9 @@ export default {
 @media screen and (max-width: 979px) {
   #burger {
     cursor: pointer;
+    width: 30px;
+    height: 30px;
+    margin-right: 40px;
   }
 }
 </style>

@@ -1,19 +1,38 @@
 <template>
   <section>
-    <h2 class="title-phone">Bonjour!</h2>
-    <img class="jauge" alt="jauge verte" src="../../assets/jaugeVerte.gif" />
+    <!-- <h2 v-for="(user,i)" in users :key="i" class="user"> -->
+    <h2 class="title-phone">Bonjour {{name}}!</h2>
+    <figure>
+      <img class="jauge" alt="jauge verte" src="../../assets/jaugeVerte.gif" />
+    </figure>
   </section>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  name: "MainMobile"
+  // name: "MainMobile",
+  components: {},
+  data() {
+    return {
+      name: null,
+    };
+  },
+  methods: {
+    async getUsers(id) {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL + "/users/" + id
+      );
+      this.name = apiRes.data.name;
+    }
+  }
 };
 </script>
 
 <style>
 @media screen and (min-width: 980px) {
   .jauge,
+  #burger,
   .title-phone {
     display: none;
   }
@@ -24,14 +43,15 @@ export default {
   }
 
   .caroussel,
+  #main-pc,
   .pixMobile,
   .para-main,
   .liens,
   .reseaux,
-  .title-main {
+  .title-main,
+  .nav-header {
     display: none;
   }
-
   .main {
     display: flex;
     flex-direction: column;
@@ -43,37 +63,21 @@ export default {
     text-align: center;
   }
 
+  figure {
+    width: 80%;
+  }
+
   .jauge {
     display: block;
-    width: 412px;
-    height: 412px;
+    width: 100%;
+    /* height: 100%; */
     margin: auto;
   }
 
-  .nav-footer {
+  /* #nav-mobile {
     display: flex;
     justify-content: space-around;
     margin: auto;
-  }
-
-  .nav-header {
-    position: absolute;
-    right: 0;
-    height: 75vh;
-    top: 27vh;
-    background: rgba(255, 247, 196, 0.6);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    width: 20%;
-    transform: translateX(100%);
-    transition: transform 0.5s ease-in-out;
-  }
-
-  .nav-active {
-    transform: translateX(0%);
-  }
-
+  } */
 }
 </style>

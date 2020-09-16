@@ -1,13 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import auth from "@/auth/";
 
 Vue.use(VueRouter);
 
 const routes = [{
     path: "/",
     name: "Home",
-    component: Home
+    component: () => import("../views/Home.vue")
   },
   {
     path: "/contact",
@@ -19,10 +19,28 @@ const routes = [{
       import( /* webpackChunkName: "about" */ "../views/Contact.vue")
   },
   {
-    path: "/se-connecter",
+    path: "/signin",
     name: "Connexion",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion
+      if (auth.getLocalAuthToken()) next("/");
+      // un utilisateur déjà connecté sera redirigé vers le dashboard...
+      else next();
+    },
     component: () =>
       import("../views/Connexion.vue")
+  },
+  {
+    path: "/signup",
+    name: "Inscription",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion
+      if (auth.getLocalAuthToken()) next("/se-connecter");
+      // un utilisateur déjà connecté sera redirigé vers le dashboard...
+      else next();
+    },
+    component: () =>
+      import("@/views/Inscription.vue")
   },
 
   {
@@ -34,6 +52,12 @@ const routes = [{
   {
     path: "/dashboard",
     name: "Dashboard",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
     component: () =>
       import("../views/Dashboard.vue"),
     children: [{

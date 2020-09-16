@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="editUser">
+    <form @submit.prevent="editUser" class="edit-user">
       <h3>Edit User</h3>
       <label for="username">Name</label>
       <input type="text" id="name" v-model="name" />
@@ -10,20 +10,24 @@
       <input type="text" id="password" v-model="password" />
       <label for="birthdate">Birthdate</label>
       <input type="text" id="birthdate" v-model="birthdate" />
-      <label for="avatar">Avatar</label>
-      <input type="text" id="avatar" v-model="avatar" />
-      <label for="role">Role</label>
+      <!-- <label for="avatar">Avatar</label>
+      <input class="avatar" type="file" id="avatar" alt="avatar" :src="avatar" />
+      <label for="role">Role</label>-->
+      <Avatar v-if="currentUser" :avatar="currentUser.avatar" />
       <input type="text" id="role" v-model="role" />
       <label for="type_user">type_user</label>
       <input type="text" id="type_user" v-model="type_user" />
-      <label for="hemophilia_card">Card</label>
-      <input type="text" id="hemophilia_card" v-model="hemophilia_card" />
+      <label for="hemophilia_card">Card recto</label>
+      <input type="file" alt="hemophilia card" id="hemophilia_card" :src="hemophilia_card.recto" />
+      <label for="hemophilia_card">Card verso</label>
+      <input type="image" alt="hemophilia card" id="hemophilia_card" :src="hemophilia_card.verso" />
       <button>ok</button>
     </form>
   </div>
 </template>
 
 <script>
+import Avatar from "@/components/Avatar";
 import axios from "axios";
 
 export default {
@@ -37,7 +41,8 @@ export default {
       avatar: "",
       role: "",
       type_user: "",
-      hemophilia_card: ""
+      hemophilia_card: "",
+      isEditMode: false
     };
   },
   methods: {
@@ -49,7 +54,8 @@ export default {
         birthdate,
         avatar,
         role,
-        type_user
+        type_user,
+        hemophilia_card
       } = this.$data;
       try {
         const res = await axios.patch(
@@ -61,7 +67,8 @@ export default {
             birthdate,
             avatar,
             role,
-            type_user
+            type_user,
+            hemophilia_card
           }
         );
         console.log(res.data);
@@ -80,10 +87,19 @@ export default {
       this.avatar = res.data.avatar;
       this.role = res.data.role;
       this.type_user = res.data.type_user;
+      this.hemophilia_card = res.data.hemophilia_card;
       // console.log(res.data);
     }
   },
-
+   components: {
+    Avatar
+  },
+  computed: {
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+    }
+  },
   created() {
     try {
       this.getUser();
@@ -95,4 +111,25 @@ export default {
 </script>
 
 <style>
+.edit-user {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  box-shadow: black;
+  margin: 50px;
+  padding: 25px;
+}
+
+.avatar {
+  width: 70px;
+  height: 60px;
+}
+
+#hemophilia_card {
+  width: 50px;
+  height: 35px;
+}
 </style>

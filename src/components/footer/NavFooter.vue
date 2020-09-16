@@ -1,73 +1,65 @@
 <template>
-  <nav id="nav-mobile" :class="isActive && 'is-active'">
+  <nav class="nav-footer">
     <router-link to="/">
       <span class="icons">
         <font-awesome-icon icon="home" />
       </span>
     </router-link>
-
-    <router-link to="rappels">
+    <router-link to="/rappels">
       <span class="icons">
         <font-awesome-icon icon="calendar-alt" />
       </span>
     </router-link>
-
-    <router-link to="contact">
+    <router-link to="/drugs">
       <span class="icons">
-        <font-awesome-icon icon="envelope" />
+        <font-awesome-icon icon="prescription-bottle-alt" />
       </span>
     </router-link>
-
-    <router-link to="/se-connecter">
+    <router-link to="/signin">
       <span class="icons">
         <font-awesome-icon icon="user-circle" />
       </span>
     </router-link>
+    <ButtonSignout v-if="isSignedIn" />
   </nav>
 </template>
 
 <script>
+import auth from "@/auth";
+import ButtonSignout from "../header/ButtonSignout";
+
 export default {
+  name: "NavFooter",
   data() {
     return {
-      isActive: false
+      auth
     };
   },
-  created() {
-    this.$ebus.$on("toggle-nav-mobile", () => {
-      this.isActive = !this.isActive;
-    });
+  computed: {
+    isSignedIn() {
+      return Boolean(this.$store.getters["user/current"]);
+    }
+  },
+  components: {
+    ButtonSignout
   }
 };
 </script>
 
-<style lang="scss" scoped>
-#nav-mobile {
-  top: 90px;
-  position: fixed;
-  width: 220px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: calc(100vh - 90px);
-  background: #2c3e50;
-  transform: translateX(-220px);
-  transition: transform 0.5s ease-in-out;
-  z-index: 10;
-
-  a {
-    font-weight: bold;
-    color: whitesmoke;
-    margin: 0 10px;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<style scoped>
+@media screen and (max-width: 979px) {
+  .nav-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #2c3e50;
+    height: 70px;
+    width: 100%;
   }
-}
-
-#nav-mobile.is-active {
-  transform: translateX(0);
+  .icons {
+    color: #91c0bb;
+    font-size: 1.875rem;
+    margin-left: 1rem;
+  }
 }
 </style>

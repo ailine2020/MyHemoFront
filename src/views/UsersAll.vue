@@ -1,44 +1,39 @@
 <template>
   <div>
     <h2>Manage Users</h2>
-    <table class="users-manage-table">
-      <thead>
-        <tr class="table-row">
-          <th class="table-head">Name</th>
-          <th class="table-head">Email</th>
-          <th class="table-head">Password</th>
-          <th class="table-head">Birthdate</th>
-          <th class="table-head">Avatar</th>
-          <th class="table-head">Role</th>
-          <th class="table-head">Type_user</th>
-          <th class="table-head">Hemophilia_card</th>
-          <th class="table-head">Edit</th>
-          <th class="table-head">Delete</th>
-        </tr>
-      </thead>
-      <tbody v-for="(user,i) in users" :key="i" class="user">
-        <td class="table-row" v-if="user">{{user.name}}</td>
-        <td class="table-row" v-if="user">{{user.email}}</td>
-        <td class="table-row" v-if="user">{{user.password}}</td>
-        <td class="table-row" v-if="user">{{user.birthdate}}</td>
-        <td class="table-row" v-if="user">{{user.avatar}}</td>
-        <td class="table-row" v-if="user">{{user.role}}</td>
-        <td class="table-row" v-if="user">{{user.type_user}}</td>
-        <td class="table-row" v-if="user">{{user.hemophilia_card}}</td>
-        <td class="table-row">
-          <router-link class="link" :to="'/users/' + user._id">
-            <span class="icons-edit">
-              <font-awesome-icon icon="edit" />
-            </span>
-          </router-link>
-        </td>
-        <td @click="deleteUsers(user._id)" class="table-row">
-          <span class="icons-edit">
-            <font-awesome-icon icon="trash-alt" />
+    <ul v-for="(user,i) in users" :key="i" class="user">
+      <li v-if="user" class="user-list">Name: {{user.name}}</li>
+      <li v-if="user" class="user-list">Email: {{user.email}}</li>
+      <li v-if="user" class="user-list">password: {{user.password}}</li>
+      <li v-if="user" class="user-list">Birthdate: {{user.birthdate}}</li>
+      <img id="avatar" v-if="user" class="user-list" :src="user.avatar" alt="avatar" />
+      <li v-if="user" class="user-list">Role: {{user.role}}</li>
+      <li v-if="user" class="user-list">Type user: {{user.type_user}}</li>
+      <img
+        id="card-hemo"
+        v-if="user"
+        class="user-list"
+        :src="user.hemophilia_card.recto"
+        alt="hemophilia card"
+      />
+      <img
+        id="card-hemo"
+        v-if="user"
+        class="user-list"
+        :src="user.hemophilia_card.verso"
+        alt="hemophilia card"
+      />
+      <li>
+        <router-link class="link" :to="'/users/' + user._id">
+          <span class="icons">
+            <font-awesome-icon icon="edit" />
           </span>
-        </td>
-      </tbody>
-    </table>
+        </router-link>
+        <span class="icons" @click="deleteUsers(user._id)">
+          <font-awesome-icon icon="trash-alt" />
+        </span>
+      </li>
+    </ul>
   </div>
 </template>
 <script>
@@ -46,12 +41,11 @@ import axios from "axios";
 // import NavDashboard from "@/components/dashboard/NavDashboard.vue";
 
 export default {
-  components: {  },
+  components: {},
   data() {
     return {
       users: []
     };
-
   },
   methods: {
     async getUsers() {
@@ -61,7 +55,7 @@ export default {
       this.users = apiRes.data;
       console.log(apiRes.data);
     },
-       async deleteUsers(id) {
+    async deleteUsers(id) {
       const apiRes = await axios.delete(
         process.env.VUE_APP_BACKEND_URL + "/users/" + id
       );
@@ -81,11 +75,42 @@ export default {
 </script>
 
 <style scoped>
-.icons-edit {
-  height: 10px;
-  width: 10px;
+.icons {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
 }
-td {
+/* td {
   border: 1px solid black;
+} */
+/* .users {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+  grid-auto-rows: 100px;
+} */
+.user {
+  border: 1px solid;
+  border-radius: 0.3rem;
+  list-style: none;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.user-list {
+  border: 1px solid;
+}
+
+#avatar {
+  height: 60px;
+  width: 70px;
+}
+
+#card-hemo {
+  width: 100px;
+  height: 70px;
 }
 </style>
