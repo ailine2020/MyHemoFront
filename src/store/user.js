@@ -65,13 +65,13 @@ export default {
             auth.deleteLocalAuthToken();
             context.commit("unsetCurrent");
             console.log("router ???", this.$router);
-            // vm.$router.push({ path: signinPath }).catch((error) => { // si un erreur survient ...
-            //   console.info(error.message); // todo : afficher le message dans une alert box
-            // });
+            vm.$router.push({ path: signinPath }).catch((error) => { // si un erreur survient ...
+              console.info(error.message); // todo : afficher le message dans une alert box
+            });
         },
         getUserByToken(context) {
             axios
-                .get("api/auth/get-user-by-token", {
+                .get("/api/auth/get-user-by-token", {
                     withCredentials: true
                     // ci dessus: TRES IMPORTANT : sans l'option withCredentials, le token (JWT)
                     // n'est pas envoyé avec la requête et le serveur ne saura pas que l'user est déjà connecté
@@ -91,7 +91,7 @@ export default {
         },
         async update(context, userInfos) {
             return new Promise((resolve, reject) => {
-                handler
+                axios
                     .patch(`/users/${userInfos._id}`, userInfos)
                     .then(res => {
                         context.commit("setCurrent", res.data);

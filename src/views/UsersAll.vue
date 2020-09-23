@@ -4,25 +4,7 @@
     <ul v-for="(user,i) in users" :key="i" class="user">
       <li v-if="user" class="user-list">Name: {{user.name}}</li>
       <li v-if="user" class="user-list">Email: {{user.email}}</li>
-      <li v-if="user" class="user-list">password: {{user.password}}</li>
-      <li v-if="user" class="user-list">Birthdate: {{user.birthdate}}</li>
       <img id="avatar" v-if="user" class="user-list" :src="user.avatar" alt="avatar" />
-      <li v-if="user" class="user-list">Role: {{user.role}}</li>
-      <li v-if="user" class="user-list">Type user: {{user.type_user}}</li>
-      <img
-        id="card-hemo"
-        v-if="user"
-        class="user-list"
-        :src="user.hemophilia_card.recto"
-        alt="hemophilia card"
-      />
-      <img
-        id="card-hemo"
-        v-if="user"
-        class="user-list"
-        :src="user.hemophilia_card.verso"
-        alt="hemophilia card"
-      />
       <li>
         <router-link class="link" :to="'/users/' + user._id">
           <span class="icons">
@@ -38,7 +20,6 @@
 </template>
 <script>
 import axios from "axios";
-// import NavDashboard from "@/components/dashboard/NavDashboard.vue";
 
 export default {
   components: {},
@@ -80,15 +61,6 @@ export default {
   width: 50px;
   cursor: pointer;
 }
-/* td {
-  border: 1px solid black;
-} */
-/* .users {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 20px;
-  grid-auto-rows: 100px;
-} */
 .user {
   border: 1px solid;
   border-radius: 0.3rem;

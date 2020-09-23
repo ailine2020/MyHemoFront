@@ -1,43 +1,46 @@
 <template>
-  <nav id="nav-mobile" :class="isActive && 'is-active'">
-    <!-- <nav class="nav-footer"> -->
-    <router-link to="/">
-      <span class="icons">
-        <font-awesome-icon icon="home" />
-      </span>
-    </router-link>
-
-    <router-link to="/rappels">
-      <span class="icons">
-        <font-awesome-icon icon="calendar-alt" />
-      </span>
-    </router-link>
-
+  <nav id="nav-mobile" :class="isActive && 'is-active'" @click="closeNav">
     <router-link to="/contact">
       <span class="icons">
         <font-awesome-icon icon="envelope" />
       </span>
     </router-link>
-
-    <router-link to="/signin">
-      <span class="icons">
-        <font-awesome-icon icon="user-circle" />
-      </span>
-    </router-link>
-    <router-link to="dashboard">
+    <router-link to="dashboard" v-if="isSignedIn && currentUser.role === 'admin'">
       <span class="icons">
         <font-awesome-icon icon="tachometer-alt" />
       </span>
     </router-link>
+    <ButtonSignout v-if="isSignedIn" />
   </nav>
 </template>
 
 <script>
+import auth from "@/auth";
+import ButtonSignout from "../header/ButtonSignout";
 export default {
+  name: "navMobile",
+  components: {
+    ButtonSignout
+  },
   data() {
     return {
+      auth,
       isActive: false
     };
+  },
+  computed: {
+    isSignedIn() {
+      return Boolean(this.$store.getters["user/current"]);
+    },
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+    }
+  },
+  methods: {
+    closeNav() {
+      this.isActive = !this.isActive;
+    }
   },
   created() {
     this.$ebus.$on("toggle-nav-mobile", () => {
@@ -58,13 +61,13 @@ export default {
   #nav-mobile {
     position: fixed;
     right: 0;
-    height: 75vh;
-    top: 27vh;
-    background:#91c0bb;
+    height: 72%;
+    top: 20.5%;
+    background: #91c0bb;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     width: 20%;
     transform: translateX(100%);
     transition: transform 0.5s ease-in-out;
@@ -79,7 +82,7 @@ export default {
     font-size: 1.875rem;
     margin: auto;
   }
-  .logo{
+  .logo {
     width: 120px;
     height: 120px;
   }

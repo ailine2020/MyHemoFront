@@ -19,11 +19,23 @@ const routes = [{
       import( /* webpackChunkName: "about" */ "../views/Contact.vue")
   },
   {
+    path: "/card",
+    name: "Card",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
+    component: () =>
+      import("../views/Card.vue")
+  },
+  {
     path: "/signin",
     name: "Connexion",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion
-      if (auth.getLocalAuthToken()) next("/");
+      if (auth.getLocalAuthToken()) next("/dashboard");
       // un utilisateur déjà connecté sera redirigé vers le dashboard...
       else next();
     },
@@ -35,19 +47,30 @@ const routes = [{
     name: "Inscription",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion
-      if (auth.getLocalAuthToken()) next("/se-connecter");
+      if (auth.getLocalAuthToken()) next("/dashboard");
       // un utilisateur déjà connecté sera redirigé vers le dashboard...
       else next();
     },
     component: () =>
       import("@/views/Inscription.vue")
   },
-
   {
     path: "/users/:id",
     name: "UserEdit",
     component: () =>
       import( /* webpackChunkName: "about" */ "@/views/UserEdit.vue"),
+  },
+  {
+    path: "/add-rappels",
+    name: "Rappels",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
+    component: () =>
+      import( /* webpackChunkName: "about" */ "@/views/AddRappels.vue"),
   },
   {
     path: "/dashboard",
@@ -69,12 +92,24 @@ const routes = [{
       {
         path: "/drugs",
         name: "Drugs",
+        beforeEnter: (to, from, next) => {
+          // on vérifie l'état de connexion:
+          if (!auth.getLocalAuthToken()) next("/signin");
+          // un utilisateur non connecté sera redirigé vers le signin...
+          else next();
+        },
         component: () =>
           import( /* webpackChunkName: "about" */ "@/views/DrugsAll.vue"),
       },
       {
         path: "/rappels",
         name: "Rappels",
+        beforeEnter: (to, from, next) => {
+          // on vérifie l'état de connexion:
+          if (!auth.getLocalAuthToken()) next("/signin");
+          // un utilisateur non connecté sera redirigé vers le signin...
+          else next();
+        },
         component: () =>
           import( /* webpackChunkName: "about" */ "@/views/RappelsAll.vue"),
       },

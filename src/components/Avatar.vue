@@ -1,8 +1,8 @@
 <template>
   <div class="avatar" :style="{'background-image': `url(${tmpURL || avatarImg})`}">
     <form v-if="isEditable">
+      <label for="input-file" class="label">Avatar</label>
       <input id="input-file" type="file" @change="handleAvatar" accept="image/*" />
-      <label for="input_file">Avatar</label>
     </form>
   </div>
 </template>

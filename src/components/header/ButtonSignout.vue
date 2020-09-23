@@ -1,12 +1,14 @@
 <template>
-  <span class="icons">
-    <font-awesome-icon
-      title="signout"
-      @click="signout"
-      class="is-clickable icon"
-      icon="user-slash"
-    />
-  </span>
+  <router-link to="/signin">
+    <span class="icons">
+      <font-awesome-icon
+        title="signout"
+        @click="signout"
+        class="is-clickable icon"
+        icon="user-slash"
+      />
+    </span>
+  </router-link>
 </template>
 
 <script>

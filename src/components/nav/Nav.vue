@@ -36,18 +36,18 @@
         </span>
       </router-link>
     </nav>
-    <Burger />
   </header>
 </template>
 
 <script>
 import auth from "@/auth";
-import Burger from "@/components/header/Burger.vue";
 import ButtonSignout from "@/components/header/ButtonSignout.vue";
 
 export default {
   name: "Nav",
-  components: { Burger, ButtonSignout },
+  components: {
+    ButtonSignout
+  },
   data() {
     return {
       auth

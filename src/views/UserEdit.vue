@@ -7,20 +7,9 @@
       <label for="email">Email</label>
       <input type="text" id="email" v-model="email" />
       <label for="password">Password</label>
-      <input type="text" id="password" v-model="password" />
-      <label for="birthdate">Birthdate</label>
-      <input type="text" id="birthdate" v-model="birthdate" />
-      <!-- <label for="avatar">Avatar</label>
-      <input class="avatar" type="file" id="avatar" alt="avatar" :src="avatar" />
-      <label for="role">Role</label>-->
-      <Avatar v-if="currentUser" :avatar="currentUser.avatar" />
+      <input type="password" id="password" v-model="password" />
+      <Avatar v-if="currentUser" :avatar="currentUser.avatar" :isEditable="true" />
       <input type="text" id="role" v-model="role" />
-      <label for="type_user">type_user</label>
-      <input type="text" id="type_user" v-model="type_user" />
-      <label for="hemophilia_card">Card recto</label>
-      <input type="file" alt="hemophilia card" id="hemophilia_card" :src="hemophilia_card.recto" />
-      <label for="hemophilia_card">Card verso</label>
-      <input type="image" alt="hemophilia card" id="hemophilia_card" :src="hemophilia_card.verso" />
       <button>ok</button>
     </form>
   </div>
@@ -37,26 +26,14 @@ export default {
       name: "",
       email: "",
       password: "",
-      birthdate: "",
       avatar: "",
       role: "",
-      type_user: "",
-      hemophilia_card: "",
       isEditMode: false
     };
   },
   methods: {
     async editUser() {
-      const {
-        name,
-        email,
-        password,
-        birthdate,
-        avatar,
-        role,
-        type_user,
-        hemophilia_card
-      } = this.$data;
+      const { name, email, password, avatar, role } = this.$data;
       try {
         const res = await axios.patch(
           process.env.VUE_APP_BACKEND_URL + "/users/" + this.$route.params.id,
@@ -64,11 +41,8 @@ export default {
             name,
             email,
             password,
-            birthdate,
             avatar,
-            role,
-            type_user,
-            hemophilia_card
+            role
           }
         );
         console.log(res.data);
@@ -83,15 +57,12 @@ export default {
       this.name = res.data.name;
       this.email = res.data.email;
       this.password = res.data.password;
-      this.birthdate = res.data.birthdate;
       this.avatar = res.data.avatar;
       this.role = res.data.role;
-      this.type_user = res.data.type_user;
-      this.hemophilia_card = res.data.hemophilia_card;
       // console.log(res.data);
     }
   },
-   components: {
+  components: {
     Avatar
   },
   computed: {

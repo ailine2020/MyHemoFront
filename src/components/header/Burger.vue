@@ -5,7 +5,6 @@
   <font-awesome-icon
     id="burger"
     icon="bars"
-    :class="{ 'active' : isClassActive }"
     @click="toggleNavMobile"
   />
 </template>
@@ -35,6 +34,7 @@ export default {
     width: 30px;
     height: 30px;
     margin-right: 40px;
+    color: #91c0bb;
   }
 }
 </style>

@@ -15,10 +15,7 @@
     />
     <label for="role" class="label">role</label>
     <input id="role" type="text" class="input" v-model="user.role" autocomplete="role" />
-    <!-- <label for="avatar" />
-    <input id="avatar" type="file" @change="handleAvatar" accept="image/*"/>-->
     <Avatar v-if="user.avatar" :avatar="user.avatar" />
-    <!-- <Card v-if="user.hemophilia_card" :hemophilia_card="user.hemophilia_card" /> -->
     <button class="btn">ok</button>
     <hr />
     <p>
@@ -29,7 +26,7 @@
 </template>
 
 <script>
-import Avatar from "@/components/Avatar";
+import Avatar from "../components/Avatar";
 
 export default {
   data() {
@@ -40,19 +37,16 @@ export default {
         password: "12345",
         role: "admin",
         avatar: ""
-      },
-      tmpURL: null
+      }
     };
   },
-
   components: {
     Avatar
   },
-
   methods: {
-    updateAvatar(image) {
-      console.log(image);
-    },
+    // updateAvatar(image) {
+    //   console.log(image);
+    // },
     signup() {
       const fd = new FormData();
       fd.append("name", this.user.name);
@@ -63,7 +57,7 @@ export default {
       this.$store.dispatch("user/signup", fd);
       this.$router.push("/signin");
     }
-  },
+  }
 };
 </script>
 

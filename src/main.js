@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./axios.config";
+import moment from "moment";
 
 
 import {
@@ -36,6 +37,12 @@ import {
   faUserSlash
 } from "@fortawesome/free-solid-svg-icons";
 import {
+  faAddressCard
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlusCircle
+} from "@fortawesome/free-solid-svg-icons";
+import {
   FontAwesomeIcon
 } from "@fortawesome/vue-fontawesome";
 
@@ -49,12 +56,17 @@ library.add(faEdit);
 library.add(faTrashAlt);
 library.add(faPrescriptionBottleAlt);
 library.add(faUserSlash);
+library.add(faAddressCard);
+library.add(faPlusCircle);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 
 Vue.prototype.$ebus = new Vue();
+
+Vue.prototype.moment = moment;
+
 
 new Vue({
   router,

@@ -1,6 +1,5 @@
 <template>
   <footer>
-    <!-- <NavFooter /> -->
     <article class="liens">
       <a href="/plan-du-site">Plan du site</a>
       <a href="/mentions-legales">Mentions légales</a>
@@ -21,16 +20,12 @@
 </template>
 
 <script>
-// import NavFooter from "@/components/footer/NavFooter";
-
 export default {
-  name: "FooterLink",
-  // components: {NavFooter}
+  name: "FooterLink"
 };
 </script>
 
 <style>
-
 @media screen and (min-width: 980px) {
   footer {
     margin-top: 15vh;
@@ -63,8 +58,8 @@ export default {
   }
 }
 
-@media screen and (max-width: 979px){
-  footer{
+@media screen and (max-width: 979px) {
+  footer {
     display: none;
   }
 }

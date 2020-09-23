@@ -28,8 +28,8 @@ export default {
   data() {
     return {
       // définition de valeurs de base pour les tests de dev ("mettre à chaîne vide une fois dev ok")
-      email: "titi@gmail.com",
-      password: "123456"
+      email: "gui@gui.gui",
+      password: "1234567"
     };
   },
   methods: {

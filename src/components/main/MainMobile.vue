@@ -1,7 +1,7 @@
 <template>
   <section>
     <!-- <h2 v-for="(user,i)" in users :key="i" class="user"> -->
-    <h2 class="title-phone">Bonjour {{name}}!</h2>
+    <h2 class="title-phone" v-if="currentUser">Bonjour {{currentUser.name}}!</h2>
     <figure>
       <img class="jauge" alt="jauge verte" src="../../assets/jaugeVerte.gif" />
     </figure>
@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       name: null,
+      userInfos: ""
     };
   },
   methods: {
@@ -24,6 +25,12 @@ export default {
         process.env.VUE_APP_BACKEND_URL + "/users/" + id
       );
       this.name = apiRes.data.name;
+    }
+  },
+   computed: {
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   }
 };
