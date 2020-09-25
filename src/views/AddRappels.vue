@@ -43,7 +43,13 @@ export default {
       try {
         const apiRes = await axios.post(
           process.env.VUE_APP_BACKEND_URL + "/rappels",
-          { author: this.currentUser._id, title, calendar, periodicity, date_rappel }
+          {
+            author: this.currentUser._id,
+            title,
+            calendar,
+            periodicity,
+            date_rappel
+          }
         );
         console.log(apiRes.data);
       } catch (err) {

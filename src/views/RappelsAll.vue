@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Manage Rappels</h2>
-    <p v-if="!rappels.length">Pas de rappels enregistré pour le moment</p>
+    <p v-if="!rappels.length">Pas de rappel enregistré pour le moment</p>
     <ul v-for="(rappel,i) in rappels" :key="i" class="rappel">
       <li class="rappel-list">Author: {{rappel.author.name}}</li>
       <li class="rappel-list">Calendar: {{ moment(rappel.calendar).format('DD-MM-YYYY') }}</li>
