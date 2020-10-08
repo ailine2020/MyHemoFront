@@ -65,18 +65,21 @@ export default {
             auth.deleteLocalAuthToken();
             context.commit("unsetCurrent");
             console.log("router ???", this.$router);
-            vm.$router.push({ path: signinPath }).catch((error) => { // si un erreur survient ...
+            /*this.$router.push({ path: signinPath }).catch((error) => { // si un erreur survient ...
               console.info(error.message); // todo : afficher le message dans une alert box
-            });
+            });*/
         },
-        getUserByToken(context) {
+        getUserByToken(context, callback) {
             axios
-                .get("/api/auth/get-user-by-token", {
-                    withCredentials: true
+                .get(process.env.VUE_APP_BACKEND_URL + "/api/auth/get-user-by-token", {
+                
                     // ci dessus: TRES IMPORTANT : sans l'option withCredentials, le token (JWT)
                     // n'est pas envoyé avec la requête et le serveur ne saura pas que l'user est déjà connecté
                 })
-                .then(res => context.commit("setCurrent", res.data))
+                .then(res => {
+                    context.commit("setCurrent", res.data)
+                    callback(); // initDrugs + initRappels sur app.vue
+                })
                 .catch(err => console.error(err.message));
         },
         getAll(context) {
@@ -86,7 +89,9 @@ export default {
                     .then(res => {
                         context.commit("setUsers", res.data);
                         resolve(res);
-                    });
+                    }).catch(err => {
+                        reject(err);
+                    })  
             });
         },
         async update(context, userInfos) {

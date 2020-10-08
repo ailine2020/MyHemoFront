@@ -1,36 +1,59 @@
 <template>
-  <section>
-    <!-- <h2 v-for="(user,i)" in users :key="i" class="user"> -->
-    <h2 class="title-phone" v-if="currentUser">Bonjour {{currentUser.name}}!</h2>
-    <figure>
-      <img class="jauge" alt="jauge verte" src="../../assets/jaugeVerte.gif" />
-    </figure>
+  <section class="main-mobile">
+    <div class="title-jauge">
+      <h2 class="title-phone" v-if="currentUser">
+        Bonjour {{ currentUser.name }}!
+      </h2>
+      <figure>
+        <img
+          class="jauge"
+          alt="jauge verte"
+          src="../../assets/jaugeVerte.gif"
+        />
+      </figure>
+    </div>
+    <div class="min">
+      <section class="min-rappel">
+        <h2 class="min-title">Mes rappels</h2>
+        <ul v-for="(rappel, i) in rappels" :key="i">
+          <li class="min-list">{{ rappel.title }}</li>
+          <li class="min-list">
+            le : {{ moment(rappel.date_last_rappel).format("DD-MM-YYYY") }}
+          </li>
+        </ul>
+        <!-- <button class="btn-rappel" @click="decrementStock">Injection ok</button> -->
+      </section>
+      <section class="min-drug">
+        <h2 class="min-title">Stock</h2>
+        <ul v-for="(drug, i) in drugs" :key="i">
+          <li class="min-list">Il reste {{ drug.quantite }} {{ drug.name }}</li>
+        </ul>
+      </section>
+    </div>
   </section>
 </template>
 
 <script>
-import axios from "axios";
 export default {
-  // name: "MainMobile",
-  components: {},
-  data() {
-    return {
-      name: null,
-      userInfos: ""
-    };
-  },
-  methods: {
-    async getUsers(id) {
-      const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/users/" + id
-      );
-      this.name = apiRes.data.name;
-    }
-  },
-   computed: {
+  name: "MainMobile",
+  computed: {
     currentUser() {
       const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+    },
+    rappels() {
+      console.log("check at rappels computed");
+      return this.$store.getters["rappels/all"];
+    },
+    drugs() {
+      console.log("check at drugs computed");
+      return this.$store.getters["drugs/all"];
+    }
+  },
+  methods: {
+    decrementStock() {
+      console.log(this.$route);
+      this.$store.dispatch("drugs/decrementStock", this.$route.params.id);
     }
   }
 };
@@ -40,7 +63,8 @@ export default {
 @media screen and (min-width: 980px) {
   .jauge,
   #burger,
-  .title-phone {
+  .title-phone,
+  .main-mobile {
     display: none;
   }
 }
@@ -59,11 +83,38 @@ export default {
   .nav-header {
     display: none;
   }
-  .main {
+  /* .main {
     display: flex;
     flex-direction: column;
+  } */
+  .main-mobile {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
   }
-
+  .min {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+    margin-right: 10%;
+  }
+  .min-drug,
+  .min-rappel {
+    background-image: url("../../assets/postIt.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 150px;
+    height: 150px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* margin-right: 100px; */
+  }
+  .min-title {
+    font-size: 15px;
+  }
   .title-phone {
     display: block;
     color: #a76576;
@@ -72,13 +123,17 @@ export default {
 
   figure {
     width: 80%;
+    margin: auto;
   }
 
   .jauge {
-    display: block;
     width: 100%;
     /* height: 100%; */
-    margin: auto;
+  }
+  .min-list {
+    list-style: none;
+    padding: 5px;
+    font-size: 12px;
   }
 
   /* #nav-mobile {

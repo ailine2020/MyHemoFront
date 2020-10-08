@@ -17,7 +17,7 @@ export default {
   components: {
     MainMobile,
     MainImage,
-    Caroussel,
-  }
+    Caroussel
+  },
 };
 </script>

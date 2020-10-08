@@ -3,12 +3,12 @@
     <h2>Manage Drugs</h2>
     <p v-if="!drugs.length">Pas de médicaments enregistrés pour le moment</p>
     <ul v-for="(drug, i) in drugs" :key="i" class="drug">
-      <li class="drug-list">Author: {{drug.author.name}}</li>
-      <li class="drug-list">Name: {{ drug.name }}</li>
-      <li class="drug-list">
+      <li v-if="currentUser" class="drug-list">Author: {{drug.author.name}}</li>
+      <li v-if="currentUser" class="drug-list">Name: {{ drug.name }}</li>
+      <li v-if="currentUser" class="drug-list">
         Date: {{ moment(drug.date).format("DD-MM-YYYY") }}
       </li>
-      <li class="drug-list">Quantité: {{ drug.quantite }}</li>
+      <li v-if="currentUser" class="drug-list">Quantité: {{ drug.quantite }}</li>
       <li>
         <router-link class="link" :to="'/drugs/' + drug._id">
           <span class="icons-edit">
@@ -21,6 +21,7 @@
           <font-awesome-icon icon="trash-alt" />
         </span>
       </li>
+      <button @click="decrementStock">-</button>
     </ul>
     <AddDrugs />
   </div>
@@ -53,13 +54,17 @@ export default {
       this.drugs = apiRes.data;
       console.log(apiRes.data);
       this.getDrugs();
+    },
+    async decrementStock() {
+      console.log(this.$route);
+      this.$store.dispatch("drugs/decrementStock", this.$route.params.id);
     }
   },
   computed: {
     currentUser() {
       const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
-    }
+    },
   },
   created() {
     try {

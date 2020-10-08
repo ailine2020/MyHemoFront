@@ -35,7 +35,7 @@ const routes = [{
     name: "Connexion",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion
-      if (auth.getLocalAuthToken()) next("/dashboard");
+      if (auth.getLocalAuthToken()) next("users/");
       // un utilisateur déjà connecté sera redirigé vers le dashboard...
       else next();
     },
@@ -62,7 +62,7 @@ const routes = [{
   },
   {
     path: "/add-rappels",
-    name: "Rappels",
+    name: "AddRappels",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/signin");

@@ -16,17 +16,37 @@ import auth from "@/auth";
 
 export default {
   components: { NavMain: Nav, FooterLink, NavMobile, NavFooter },
-  beforeCreate() {
-    const currentUser = this.$store.getters["user/current"];
-    const token = auth.getLocalAuthToken();
+  created() {
+    this.checkLoggedInUser();
+  },
+  methods: {
+    initDrugs() {
+      this.$store.dispatch("drugs/getDrugs");
+    },
+    initRappels() {
+      this.$store.dispatch("rappels/getRappels");
+    },
+    checkLoggedInUser() {
+      const currentUser = this.$store.getters["user/current"];
+      const token = auth.getLocalAuthToken();
 
-    if (token && !currentUser) {
-      this.$store.dispatch("user/getUserByToken");
+      if (token && !currentUser) {
+        this.$store.dispatch("user/getUserByToken", () => {
+          // callback
+          this.initDrugs();
+          this.initRappels();
+        });
+      }
     }
   }
 };
 </script>
 <style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

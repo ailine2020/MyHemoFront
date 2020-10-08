@@ -9,10 +9,14 @@
           <font-awesome-icon icon="home" />
         </span>
       </router-link>
-
       <router-link to="rappels">
         <span class="icons">
           <font-awesome-icon icon="calendar-alt" />
+        </span>
+      </router-link>
+      <router-link to="/drugs">
+        <span class="icons">
+          <font-awesome-icon icon="prescription-bottle-alt" />
         </span>
       </router-link>
 
@@ -30,7 +34,10 @@
       <router-link to="/signin">
         <ButtonSignout v-if="isSignedIn" />
       </router-link>
-      <router-link to="dashboard">
+      <router-link
+        to="dashboard"
+        v-if="isSignedIn && currentUser.role === 'admin'"
+      >
         <span class="icons">
           <font-awesome-icon icon="tachometer-alt" />
         </span>
@@ -56,6 +63,10 @@ export default {
   computed: {
     isSignedIn() {
       return Boolean(this.$store.getters["user/current"]);
+    },
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   }
 };

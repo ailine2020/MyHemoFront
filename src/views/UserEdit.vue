@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="editUser" class="edit-user">
+    <form @submit.prevent="editUser" class="edit-user" v-if="currentUser">
       <h3>Edit User</h3>
       <label for="username">Name</label>
       <input type="text" id="name" v-model="name" />
@@ -36,7 +36,7 @@ export default {
       const { name, email, password, avatar, role } = this.$data;
       try {
         const res = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/users/" + this.$route.params.id,
+          process.env.VUE_APP_BACKEND_URL + `/users/${this.$store.getters["user/current"]._id}`,
           {
             name,
             email,
@@ -52,7 +52,7 @@ export default {
     },
     async getUser() {
       const res = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/users/" + this.$route.params.id
+        process.env.VUE_APP_BACKEND_URL + `/users/${this.$store.getters["user/current"]._id}`
       );
       this.name = res.data.name;
       this.email = res.data.email;

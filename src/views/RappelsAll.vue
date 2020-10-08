@@ -2,20 +2,24 @@
   <div>
     <h2>Manage Rappels</h2>
     <p v-if="!rappels.length">Pas de rappel enregistré pour le moment</p>
-    <ul v-for="(rappel,i) in rappels" :key="i" class="rappel">
-      <li class="rappel-list">Author: {{rappel.author.name}}</li>
-      <li class="rappel-list">Calendar: {{ moment(rappel.calendar).format('DD-MM-YYYY') }}</li>
-      <li class="rappel-list">Periodicity: {{rappel.periodicity}}</li>
-      <li class="rappel-list">Injection: {{rappel.injection_ok}}</li>
-      <li class="rappel-list">Drug: {{rappel.drugs}}</li>
-      <li class="rappel-list">Rappel: {{ moment(rappel.date_rappel).format('DD-MM-YYYY') }}</li>
-      <li class="rappel-list">Type: {{rappel.title}}</li>
+    <ul v-for="(rappel, i) in rappels" :key="i" class="rappel">
+      <li class="rappel-list">Author: {{ rappel.author.name }}</li>
+      <li class="rappel-list">
+        Date: {{ moment(rappel.date_created).format("DD-MM-YYYY") }}
+      </li>
+      <li class="rappel-list">Periodicity: {{ rappel.periodicity }}</li>
+      <li class="rappel-list">Injection: {{ rappel.injection_ok }}</li>
+      <li class="rappel-list">Drug: {{ rappel.drugs }}</li>
+      <li class="rappel-list">
+        Date Rappel: {{ moment(rappel.date_last_rappel).format("DD-MM-YYYY") }}
+      </li>
+      <li class="rappel-list">Type: {{ rappel.title }}</li>
       <router-link class="link" :to="'/rappels/' + rappel._id" tag="li">
         <span class="icons-edit">
           <font-awesome-icon icon="edit" />
         </span>
       </router-link>
-      <li>
+      <li class="delete-icon">
         <span @click="deleteRappels(rappel._id)" class="icons-edit">
           <font-awesome-icon icon="trash-alt" />
         </span>
@@ -87,5 +91,8 @@ export default {
 }
 .rappel {
   border: 1px solid black;
+}
+.delete-icon{
+  cursor: pointer;
 }
 </style>

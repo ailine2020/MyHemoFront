@@ -8,7 +8,7 @@
         type="file"
         @change="fileSelectRecto"
       />
-      <label for="verso">recto</label>
+      <label for="verso">verso</label>
       <input
         class="is-hidden"
         id="verso"
@@ -17,9 +17,9 @@
       />
       <button>Upload</button>
     </form>
-    <figure>
-      <img v-if="rectoImage" :src="rectoImage" alt="card" />
-      <img v-if="versoImage" :src="versoImage" alt="card" />
+    <figure v-if="currentUser">
+      <img :src="currentUser.card.recto"/>
+      <img :src="currentUser.card.verso"/>
     </figure>
   </div>
 </template>
@@ -33,10 +33,16 @@ export default {
     return {
       recto: null,
       verso: null,
-      rectoImage :"",
-      versoImage :"",
+      rectoImage: "",
+      versoImage: "",
       handler: apiHandler()
     };
+  },
+  computed: {
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+    }
   },
   methods: {
     fileSelectRecto(event) {
@@ -54,20 +60,36 @@ export default {
       fd.append("card", this.verso);
       this.handler
         .patch("/card/user/" + this.$store.getters["user/current"]._id, fd)
+        // .post("/card/user/" + this.$store.getters["user/current"]._id, fd)
         .then(res => {
           console.log(res);
         })
         .catch(err => {
           console.error(err);
         });
+      this.getCard();
+            location.href = "/card";
+
+    },
+    async getCard() {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL +
+          `/card/user/${this.$store.getters["user/current"]._id}`
+      );
+      this.recto = apiRes.data;
+      this.verso = apiRes.data;
+      // this.rectoImage = URL.createObjectURL(this.recto);
+      // this.versoImage = URL.createObjectURL(this.verso);
+      console.log("---------------++++", apiRes.data);
     }
   },
-  async getCard() {
-    const apiRes = await axios.get(process.env.VUE_APP_BACKEND_URL + "/card");
-    this.recto = apiRes.data;
-    this.verso = apiRes.data;
-    console.log(apiRes.data);
-  }
+  // created() {
+  //   try {
+  //     this.getCard();
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
 };
 </script>
 
