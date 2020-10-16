@@ -10,7 +10,6 @@ export default {
     state: {
         drugs: [],
         currentDrug: null,
-        quantite: 0,
     },
     getters: {
         all(state) {
@@ -41,10 +40,31 @@ export default {
                 console.error(err)
             }
         },
-        async decrementStock(ctx) {
-            const userId = ctx.rootState.user.currentUser._id;
+        add(ctx, drug) {
+            return new Promise((resolve, reject) => {
+                const userId = ctx.rootState.user.currentUser._id;
+                handler.post(
+                        process.env.VUE_APP_BACKEND_URL +
+                        `/drugs/user/${userId}`,
+                        drug,
+                    ).then(resolve)
+                    .catch(err => reject(err.message));
+            })
+        },
+        deleteDrugs(ctx, drugId) {
+            return new Promise((resolve, reject) => {
+                handler.delete(
+                        process.env.VUE_APP_BACKEND_URL +
+                        `/drugs/${drugId}`,
+                        drugId
+                    ).then(resolve)
+                    .catch(err => reject(err.message));
+            })
+        },
+        async decrementStock(ctx, drugId) {
             try {
-                const apiRes = await handler.patch(`/drugs/${userId}/decrement-stock`);
+                const apiRes = await handler.patch(
+                    process.env.VUE_APP_BACKEND_URL + `/drugs/${drugId}/decrement-stock`);
                 ctx.commit("setQuantite", apiRes.data);
             } catch (err) {
                 console.error(err);

@@ -25,7 +25,7 @@ export default {
         },
         pushRappel(state, rappel) {
             state.rappels.push(rappel);
-        }
+        },
     },
     actions: {
         async getRappels(ctx) {
@@ -37,25 +37,26 @@ export default {
                 console.error(err)
             }
         },
-        async deleteRappels(ctx) {
-            const userId = ctx.rootState.user.currentUser._id;
-            try {
-                const apiRes = await handler.delete(`/rappels/user/${userId}`);
-                ctx.commit("setRappels", apiRes.data);
-            } catch (err) {
-                console.error(err)
-            }
-        },
         add(ctx, rappel) {
             return new Promise((resolve, reject) => {
                 const userId = ctx.rootState.user.currentUser._id;
                 handler.post(
                         process.env.VUE_APP_BACKEND_URL +
                         `/rappels/user/${userId}`,
-                        rappel
+                        rappel,
+                    ).then(resolve)
+                    .catch(err => reject(err.message));
+            })
+        },
+        deleteRappels(ctx, rappelId) {
+            return new Promise((resolve, reject) => {
+                handler.delete(
+                        process.env.VUE_APP_BACKEND_URL +
+                        `/rappels/${rappelId}`,
+                        rappelId
                     ).then(resolve)
                     .catch(err => reject(err.message));
             })
         }
     }
-}
+};

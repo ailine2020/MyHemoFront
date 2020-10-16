@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>MES INFOS</h2>
+    <h2>MANAGE USERS</h2>
     <ul>
       <li v-if="currentUser" class="user-list">Name: {{ currentUser.name }}</li>
       <li v-if="currentUser" class="user-list">Email: {{ currentUser.email }}</li>
@@ -25,7 +25,7 @@ export default {
   components: {},
   data() {
     return {
-      users: {}
+      users: []
     };
   },
   methods: {

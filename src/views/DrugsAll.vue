@@ -2,9 +2,11 @@
   <main class="main-drugs">
     <h2>MES MEDICAMENTS</h2>
     <section class="drugs-all">
-      <p v-if="!drugs.length">Pas de médicaments enregistrés pour le moment</p>
+      <p v-if="!drugs || !drugs.length">
+        Pas de médicaments enregistrés pour le moment
+      </p>
       <ul v-for="(drug, i) in drugs" :key="i" class="drug">
-        <li v-if="currentUser" class="drug-list">
+        <li v-if="Boolean(currentUser)" class="drug-list">
           Créé par: {{ drug.author.name }}
         </li>
         <li class="drug-list">Name: {{ drug.name }}</li>
@@ -24,9 +26,9 @@
             </span>
           </button>
         </li>
-        <!-- <button @click="decrementStock">
+        <button @click="decrementStock(drug._id)">
           -
-        </button> -->
+        </button>
       </ul>
     </section>
     <AddDrugs />
@@ -34,61 +36,40 @@
 </template>
 
 <script>
-import axios from "axios";
 import AddDrugs from "../components/dashboard/Form-add-drug";
 
 export default {
   components: { AddDrugs },
-  data() {
-    return {
-      drugs: []
-      // quantite: 0
-    };
-  },
   methods: {
-    async getDrugs() {
-      this.drugs=[];
-      const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL +
-          `/drugs/user/${this.$store.getters["user/current"]._id}`
-      );
-      this.drugs = apiRes.data;
-      console.log(apiRes.data);
+    created() {
+      this.$store.dispatch("drugs/getDrugs");
     },
     async deleteDrugs(id) {
-      const apiRes = await axios.delete(
-        process.env.VUE_APP_BACKEND_URL + "/drugs/" + id
-      );
-      this.drugs = apiRes.data;
-      console.log(apiRes.data);
-      this.getDrugs();
+      try {
+        await this.$store.dispatch("drugs/deleteDrugs", id),
+          this.$router.push("drugs");
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    async decrementStock(id) {
+      console.log("eh! oh!", this.$route, id);
+
+      try {
+        await this.$store.dispatch("drugs/decrementStock", id);
+      } catch (err) {
+        console.error(err);
+        console.log("coucou", err);
+      }
     }
   },
-  // 
-  // }
   computed: {
     currentUser() {
-      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
+      const userInfos = this.$store.getters["user/current"];
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     },
-    //async decrementStock() {
-  //   console.log("eh! oh!", this.$route);
-  //   try {
-  //     const apiRes = await this.$store.dispatch(
-  //       "drugs/decrementStock",
-  //       this.$route.params.id
-  //     );
-  //     this.quantite = apiRes.data.quantite;
-  //   } catch (err) {
-  //     console.error(err);
-  //     console.log("coucou", err);
-  //   }
-  },
-  created() {
-    try {
-      this.getDrugs();
-    } catch (err) {
-      console.error(err);
+    drugs() {
+      return this.$store.getters["drugs/all"];
     }
   }
 };

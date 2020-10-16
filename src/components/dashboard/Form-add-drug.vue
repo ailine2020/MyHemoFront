@@ -19,52 +19,44 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 export default {
   name: "formAddDrugs",
   data() {
     return {
-      name: "",
+      name: "elocta",
       date: "",
-      quantite: 0
+      quantite: 15
     };
   },
   methods: {
-    async getDrugs() {
-      const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/drugs"
-      );
-      // this.author = apiRes.data.author;
-      this.name = apiRes.data.name;
-      this.date = apiRes.data.date;
-      this.quantite = apiRes.data.quantite;
-      console.log("add drug", apiRes.data);
-    },
+    // async getDrugs() {
+    //   const apiRes = await axios.get(
+    //     process.env.VUE_APP_BACKEND_URL + "/drugs"
+    //   );
+    //   // this.author = apiRes.data.author;
+    //   this.name = apiRes.data.name;
+    //   this.date = apiRes.data.date;
+    //   this.quantite = apiRes.data.quantite;
+    //   console.log("add drug", apiRes.data);
+    // },
     async addDrugs() {
       const { name, date, quantite } = this.$data;
       try {
-        const apiRes = await axios.post(
-          process.env.VUE_APP_BACKEND_URL +
-            `/drugs/user/${this.$store.getters["user/current"]._id}`,
-          {
-            // author: this.currentUser._id,
-            name,
-            date,
-            quantite
-          }
-        );
-        console.log(apiRes.data);
+        await this.$store.dispatch("drugs/add", { name, date, quantite });
+        this.$router.push("/drugs");
       } catch (err) {
-        console.log(err.message);
+        console.error(err);
       }
-      this.getDrugs();
-      // location.href = "/drugs";
     }
   },
   computed: {
+    drugs() {
+      return this.$store.getters["drugs/all"];
+    },
     currentUser() {
-      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+      const userInfos = this.$store.getters["user/current"];
+      return userInfos;
     }
   }
 };

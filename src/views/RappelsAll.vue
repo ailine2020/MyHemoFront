@@ -51,16 +51,19 @@ export default {
   data() {
     return {};
   },
-  // methods: {
-  //   async deleteRappels(id) {
-  //     const apiRes = await axios.delete(
-  //       process.env.VUE_APP_BACKEND_URL + "/rappels/" + id
-  //     );
-  //     this.rappels = apiRes.data;
-  //     console.log(apiRes.data);
-  //     this.getRappels();
-  //   }
-  // },
+  methods: {
+    created() {
+      this.$store.dispatch("rappels/getRappels");
+    },
+    async deleteRappels(id) {
+      try {
+        await this.$store.dispatch("rappels/deleteRappels", id),
+          this.$router.push("rappels");
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  },
   computed: {
     rappels() {
       return this.$store.getters["rappels/all"];
@@ -70,12 +73,6 @@ export default {
       const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
-  },
-  created() {
-    this.$store.dispatch("rappels/getRappels");
-  },
-  deleteRappels(id) {
-    return this.$store.getters["rappels/deleteRappels"];
   }
 };
 </script>

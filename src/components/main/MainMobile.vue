@@ -26,7 +26,9 @@
       <section class="min-drug" v-if="currentUser">
         <h2 class="min-title">Stock</h2>
         <ul v-for="(drug, i) in drugs" :key="i">
-          <li v-if="currentUser" class="min-list">Il reste {{ drug.quantite }}{{ drug.name }}</li>
+          <li v-if="currentUser" class="min-list">
+            Il reste {{ drug.quantite }}{{ drug.name }}
+          </li>
         </ul>
       </section>
     </div>
@@ -49,13 +51,13 @@ export default {
       console.log("check at drugs computed");
       return this.$store.getters["drugs/all"];
     }
-  },
-  methods: {
-    decrementStock() {
-      console.log(this.$route);
-      this.$store.dispatch("drugs/decrementStock", this.$route.params.id);
-    }
   }
+  // methods: {
+  //   decrementStock() {
+  //     console.log(this.$route);
+  //     this.$store.dispatch("drugs/decrementStock", this.$route.params.id);
+  //   }
+  // }
 };
 </script>
 

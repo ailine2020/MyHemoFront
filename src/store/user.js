@@ -72,7 +72,7 @@ export default {
         getUserByToken(context, callback) {
             axios
                 .get(process.env.VUE_APP_BACKEND_URL + "/api/auth/get-user-by-token", {
-                
+
                     // ci dessus: TRES IMPORTANT : sans l'option withCredentials, le token (JWT)
                     // n'est pas envoyé avec la requête et le serveur ne saura pas que l'user est déjà connecté
                 })
@@ -91,7 +91,7 @@ export default {
                         resolve(res);
                     }).catch(err => {
                         reject(err);
-                    })  
+                    })
             });
         },
         async update(context, userInfos) {
@@ -108,6 +108,15 @@ export default {
                         reject(err);
                     });
             });
-        }
+        },
+        // deleteUser(ctx, userInfos) {
+        //     return new Promise((resolve, reject) => {
+        //         handler.delete(process.env.VUE_APP_BACKEND_URL +
+        //                 `/users/${userInfos}`,
+        //                 userInfos)
+        //             .then(resolve)
+        //             .catch(err => reject(err.message));
+        //     })
+        // }
     }
 };
