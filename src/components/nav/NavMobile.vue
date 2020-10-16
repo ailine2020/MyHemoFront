@@ -5,7 +5,10 @@
         <font-awesome-icon icon="envelope" />
       </span>
     </router-link>
-    <router-link to="dashboard" v-if="isSignedIn && currentUser.role === 'admin'">
+    <router-link
+      to="dashboard"
+      v-if="isSignedIn && currentUser.role === 'admin'"
+    >
       <span class="icons">
         <font-awesome-icon icon="tachometer-alt" />
       </span>
@@ -63,7 +66,7 @@ export default {
     right: 0;
     height: 72%;
     top: 20.5%;
-    background: #91c0bb;
+    background: #c4d5c5;
     display: flex;
     flex-direction: column;
     align-items: center;

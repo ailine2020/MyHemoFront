@@ -1,7 +1,7 @@
 <template>
   <header id="nav-logo">
     <figure id="logo">
-      <img src="../../assets/LOGO_final.svg" alt="logo" class="logo" />
+      <img src="../../assets/Logo4.svg" alt="logo" class="logo" />
     </figure>
     <nav class="nav-header">
       <router-link to="/">
@@ -9,7 +9,12 @@
           <font-awesome-icon icon="home" />
         </span>
       </router-link>
-      <router-link to="rappels">
+      <router-link to="/card">
+        <span class="icons">
+          <font-awesome-icon icon="address-card" />
+        </span>
+      </router-link>
+      <router-link to="/rappels">
         <span class="icons">
           <font-awesome-icon icon="calendar-alt" />
         </span>
@@ -20,13 +25,13 @@
         </span>
       </router-link>
 
-      <router-link to="contact">
+      <router-link to="/contact">
         <span class="icons">
           <font-awesome-icon icon="envelope" />
         </span>
       </router-link>
 
-      <router-link to="signin">
+      <router-link to="/signin">
         <span class="icons">
           <font-awesome-icon icon="user-circle" />
         </span>
@@ -35,7 +40,7 @@
         <ButtonSignout v-if="isSignedIn" />
       </router-link>
       <router-link
-        to="dashboard"
+        to="/dashboard"
         v-if="isSignedIn && currentUser.role === 'admin'"
       >
         <span class="icons">
@@ -75,7 +80,8 @@ export default {
 <style>
 #nav-logo {
   /* background: rgba(40, 40, 40, 0.1); */
-  background: #91c0bb;
+  /* background: #91c0bb; */
+  background: #2c3e50;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -83,7 +89,7 @@ export default {
 }
 
 .icons {
-  color: #2c3e50;
+  color: #c4d5c5;
   font-size: 2.5rem;
   margin-right: 3.75rem;
 }

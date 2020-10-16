@@ -34,7 +34,7 @@ export default {
     width: 30px;
     height: 30px;
     margin-right: 40px;
-    color: #91c0bb;
+    color: #c4d5c5;
   }
 }
 </style>

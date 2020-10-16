@@ -2,9 +2,21 @@
   <form @submit.prevent="signup" class="form">
     <h1 class="title">Signup</h1>
     <label for="name" class="label">Name</label>
-    <input id="name" type="text" class="input" v-model="user.name" autocomplete="given-name" />
+    <input
+      id="name"
+      type="text"
+      class="input"
+      v-model="user.name"
+      autocomplete="given-name"
+    />
     <label for="email" class="label">email</label>
-    <input id="email" type="email" class="input" v-model="user.email" autocomplete="email" />
+    <input
+      id="email"
+      type="email"
+      class="input"
+      v-model="user.email"
+      autocomplete="email"
+    />
     <label for="password" class="label">password</label>
     <input
       id="password"
@@ -13,8 +25,6 @@
       v-model="user.password"
       autocomplete="current-password"
     />
-    <label for="role" class="label">role</label>
-    <input id="role" type="text" class="input" v-model="user.role" autocomplete="role" />
     <Avatar v-if="user.avatar" :avatar="user.avatar" />
     <button class="btn">ok</button>
     <hr />
@@ -35,7 +45,7 @@ export default {
         name: "titi",
         email: "titi@gmail.com",
         password: "12345",
-        role: "admin",
+        role: "user",
         avatar: ""
       }
     };

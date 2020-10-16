@@ -9,7 +9,13 @@
     <label for="subject" class="label">Sujet</label>
     <input id="subject" type="text" class="input" v-model="subject" />
     <label for="message" class="label">Votre message</label>
-    <textarea id="message" cols="30" rows="10" class="input" v-model="message"></textarea>
+    <textarea
+      id="message"
+      cols="30"
+      rows="10"
+      class="input"
+      v-model="message"
+    ></textarea>
     <button class="btn">Envoyer</button>
   </form>
 </template>
@@ -52,19 +58,19 @@ export default {
 }
 
 .input {
-  background: lightgrey;
+  background: #fff7c4;
   width: 50%;
   height: 20px;
   margin-bottom: 20px;
 }
 
-#message{
+#message {
   height: 20vh;
 }
 .btn {
-  background: black;
+  background: #2c3950;
   width: 30%;
   height: 40px;
-  color: white;
+  color: #fff7c4;
 }
 </style>

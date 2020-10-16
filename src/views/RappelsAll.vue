@@ -1,98 +1,118 @@
 <template>
-  <div>
-    <h2>Manage Rappels</h2>
-    <p v-if="!rappels.length">Pas de rappel enregistré pour le moment</p>
-    <ul v-for="(rappel, i) in rappels" :key="i" class="rappel">
-      <li class="rappel-list">Author: {{ rappel.author.name }}</li>
-      <li class="rappel-list">
-        Date: {{ moment(rappel.date_created).format("DD-MM-YYYY") }}
-      </li>
-      <li class="rappel-list">Periodicity: {{ rappel.periodicity }}</li>
-      <li class="rappel-list">Injection: {{ rappel.injection_ok }}</li>
-      <li class="rappel-list">Drug: {{ rappel.drugs }}</li>
-      <li class="rappel-list">
-        Date Rappel: {{ moment(rappel.date_last_rappel).format("DD-MM-YYYY") }}
-      </li>
-      <li class="rappel-list">Type: {{ rappel.title }}</li>
-      <router-link class="link" :to="'/rappels/' + rappel._id" tag="li">
-        <span class="icons-edit">
-          <font-awesome-icon icon="edit" />
+  <main class="section-rappel">
+    <h2>MES RAPPELS</h2>
+    <section class="rappels-all">
+      <p v-if="!rappels.length">Pas de rappel enregistré pour le moment</p>
+      <ul v-for="(rappel, i) in rappels" :key="i" class="rappel">
+        <li v-if="currentUser" class="rappel-list">
+          Créé par: {{ rappel.author.name }}
+        </li>
+        <li v-if="currentUser" class="rappel-list">
+          Date: {{ moment(rappel.date_created).format("DD-MM-YYYY") }}
+        </li>
+        <li v-if="currentUser" class="rappel-list">
+          Periodicité: {{ rappel.periodicity }}
+        </li>
+        <li v-if="currentUser" class="rappel-list">
+          Date Rappel:
+          {{ moment(rappel.date_last_rappel).format("DD-MM-YYYY") }}
+        </li>
+        <li v-if="currentUser" class="rappel-list">
+          Type de rappel: {{ rappel.title }}
+        </li>
+        <li class="icons-manage">
+          <router-link class="link" :to="'/rappels/' + rappel._id">
+            <span id="icons-edit">
+              <font-awesome-icon icon="edit" />
+            </span>
+          </router-link>
+          <span @click="deleteRappels(rappel._id)" id="icons-edit">
+            <font-awesome-icon icon="trash-alt" />
+          </span>
+        </li>
+      </ul>
+    </section>
+    <section class="create-rappels">
+      <router-link class="link-create" :to="'/add-rappels'">
+        <span>
+          <font-awesome-icon id="icons-create" icon="plus-circle" />
         </span>
       </router-link>
-      <li class="delete-icon">
-        <span @click="deleteRappels(rappel._id)" class="icons-edit">
-          <font-awesome-icon icon="trash-alt" />
-        </span>
-      </li>
-    </ul>
-    <router-link class="link" :to="'/add-rappels'">
-      <span class="icons-create">
-        <font-awesome-icon icon="plus-circle" />
-      </span>
-    </router-link>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "rappels",
   components: {},
   data() {
-    return {
-      rappels: []
-    };
+    return {};
   },
-  methods: {
-    async getRappels() {
-      console.log("WHAAAT ?");
-      const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL +
-          `/rappels/user/${this.$store.getters["user/current"]._id}`
-      );
-      console.log(apiRes);
-      this.rappels = apiRes.data;
-      console.log(apiRes.data);
-    },
-    async deleteRappels(id) {
-      const apiRes = await axios.delete(
-        process.env.VUE_APP_BACKEND_URL + "/rappels/" + id
-      );
-      this.rappels = apiRes.data;
-      console.log(apiRes.data);
-      this.getRappels();
-    }
-  },
+  // methods: {
+  //   async deleteRappels(id) {
+  //     const apiRes = await axios.delete(
+  //       process.env.VUE_APP_BACKEND_URL + "/rappels/" + id
+  //     );
+  //     this.rappels = apiRes.data;
+  //     console.log(apiRes.data);
+  //     this.getRappels();
+  //   }
+  // },
   computed: {
+    rappels() {
+      return this.$store.getters["rappels/all"];
+    },
+
     currentUser() {
       const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   },
   created() {
-    try {
-      this.getRappels();
-    } catch (err) {
-      console.error(err);
-    }
+    this.$store.dispatch("rappels/getRappels");
+  },
+  deleteRappels(id) {
+    return this.$store.getters["rappels/deleteRappels"];
   }
 };
 </script>
 
-<style scoped>
-.icons-edit {
-  height: 10px;
-  width: 10px;
+<style>
+#icons-edit {
+  height: 30px;
+  width: 30px;
   cursor: pointer;
+  color: #2c3950;
 }
-.rappel-list {
+.icons-manage {
+  display: flex;
+  justify-content: space-around;
+}
+.rappel-list,
+.icons-manage {
   list-style-type: none;
+  padding: 10px;
 }
 .rappel {
-  border: 1px solid black;
+  border: 2px solid #2c3950;
+  padding: 20px;
 }
-.delete-icon{
+.delete-icon {
   cursor: pointer;
+}
+.rappels-all {
+  display: flex;
+  margin: 30px;
+  justify-content: center;
+  flex-flow: row wrap;
+}
+
+#icons-create {
+  height: 50px;
+  width: 50px;
+  color: #2c3950;
 }
 </style>

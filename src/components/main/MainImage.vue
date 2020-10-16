@@ -1,12 +1,15 @@
 <template>
   <section id="main-pc">
-    <img class="pixMobile" src="../../assets/mobileAplati.jpg" alt="mobile" />
+    <figure>
+      <img class="pixMobile" src="../../assets/mobileAplati.jpg" alt="mobile" />
+    </figure>
     <article>
       <h2 class="title-main">Lorem ipsum dolor sit amet consectetur</h2>
       <p class="para-main">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident rem fuga culpa magni
-        nam deleniti beatae iusto tempore repellat quisquam. Ipsum repudiandae nihil neque asperiores doloremque
-        voluptate ut magnam officiis!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident rem
+        fuga culpa magni nam deleniti beatae iusto tempore repellat quisquam.
+        Ipsum repudiandae nihil neque asperiores doloremque voluptate ut magnam
+        officiis!
       </p>
     </article>
   </section>

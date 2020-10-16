@@ -22,17 +22,40 @@ export default {
     mutations: {
         setRappels(state, rappels) {
             state.rappels = [...rappels];
+        },
+        pushRappel(state, rappel) {
+            state.rappels.push(rappel);
         }
     },
     actions: {
         async getRappels(ctx) {
             const userId = ctx.rootState.user.currentUser._id;
             try {
-                const apiRes = await handler.get( `/rappels/user/${userId}`);
+                const apiRes = await handler.get(`/rappels/user/${userId}`);
                 ctx.commit("setRappels", apiRes.data);
-            } catch(err) {
+            } catch (err) {
                 console.error(err)
             }
-          },
+        },
+        async deleteRappels(ctx) {
+            const userId = ctx.rootState.user.currentUser._id;
+            try {
+                const apiRes = await handler.delete(`/rappels/user/${userId}`);
+                ctx.commit("setRappels", apiRes.data);
+            } catch (err) {
+                console.error(err)
+            }
+        },
+        add(ctx, rappel) {
+            return new Promise((resolve, reject) => {
+                const userId = ctx.rootState.user.currentUser._id;
+                handler.post(
+                        process.env.VUE_APP_BACKEND_URL +
+                        `/rappels/user/${userId}`,
+                        rappel
+                    ).then(resolve)
+                    .catch(err => reject(err.message));
+            })
+        }
     }
 }

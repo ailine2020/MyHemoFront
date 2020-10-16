@@ -20,15 +20,15 @@ export default {
             return state.currentDrug;
         },
         quantite(state) {
-            return state.quantite - 1;
+            return state.quantite;
         }
     },
     mutations: {
         setDrugs(state, drugs) {
             state.drugs = [...drugs];
         },
-        setQuantite(state, quantite) {
-            state.quantite = quantite;
+        setQuantite(state) {
+            state.quantite -= 1;
         }
     },
     actions: {
@@ -41,9 +41,10 @@ export default {
                 console.error(err)
             }
         },
-        async decrementStock(ctx, id) {
+        async decrementStock(ctx) {
+            const userId = ctx.rootState.user.currentUser._id;
             try {
-                const apiRes = await handler.patch("/drugs/" + id + "/decrement-stock");
+                const apiRes = await handler.patch(`/drugs/${userId}/decrement-stock`);
                 ctx.commit("setQuantite", apiRes.data);
             } catch (err) {
                 console.error(err);

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h2>MES INFOS</h2>
-    <ul>
-      <li v-if="currentUser" class="user-list">Name: {{ currentUser.name }}</li>
-      <li v-if="currentUser" class="user-list">Email: {{ currentUser.email }}</li>
-      <!-- <img id="avatar" class="user-list" :src="user.avatar" alt="avatar" /> -->
+    <h2>Manage Users</h2>
+    <ul v-for="(user,i) in users" :key="i" class="user">
+      <li v-if="user" class="user-list">Name: {{user.name}}</li>
+      <li v-if="user" class="user-list">Email: {{user.email}}</li>
+      <img id="avatar" v-if="user" class="user-list" :src="user.avatar" alt="avatar" />
       <li>
         <router-link class="link" :to="'/users/' + user._id">
           <span class="icons">
@@ -25,14 +25,13 @@ export default {
   components: {},
   data() {
     return {
-      users: {}
+      users: []
     };
   },
   methods: {
     async getUsers() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL +
-          `/users/${this.$store.getters["user/current"]._id}`
+        process.env.VUE_APP_BACKEND_URL + "/users/"
       );
       this.users = apiRes.data;
       console.log(apiRes.data);
@@ -48,17 +47,17 @@ export default {
   },
   computed: {
     currentUser() {
-      const userInfos = this.$store.getters["user/current"];
-      return userInfos;
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+    }
+  },
+  created() {
+    try {
+      this.getUsers();
+    } catch (err) {
+      console.error(err);
     }
   }
-  // created() {
-  //   try {
-  //     this.getUsers();
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
 };
 </script>
 

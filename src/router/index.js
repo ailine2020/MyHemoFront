@@ -16,7 +16,7 @@ const routes = [{
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Contact.vue")
+      import( "../views/Contact.vue")
   },
   {
     path: "/card",
@@ -35,7 +35,7 @@ const routes = [{
     name: "Connexion",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion
-      if (auth.getLocalAuthToken()) next("users/");
+      if (auth.getLocalAuthToken()) next("/users/:id");
       // un utilisateur déjà connecté sera redirigé vers le dashboard...
       else next();
     },
@@ -47,7 +47,7 @@ const routes = [{
     name: "Inscription",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion
-      if (auth.getLocalAuthToken()) next("/dashboard");
+      if (auth.getLocalAuthToken()) next("/signin");
       // un utilisateur déjà connecté sera redirigé vers le dashboard...
       else next();
     },
@@ -55,10 +55,40 @@ const routes = [{
       import("@/views/Inscription.vue")
   },
   {
+    path: "/users",
+    name: "Users",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
+    component: () =>
+      import( /* webpackChunkName: "about" */ "@/views/UsersAll.vue"),
+  },
+  {
     path: "/users/:id",
     name: "UserEdit",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
     component: () =>
       import( /* webpackChunkName: "about" */ "@/views/UserEdit.vue"),
+  },
+  {
+    path: "/rappels",
+    name: "Rappels",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
+    component: () =>
+      import( /* webpackChunkName: "about" */ "@/views/RappelsAll.vue"),
   },
   {
     path: "/add-rappels",
@@ -70,8 +100,25 @@ const routes = [{
       else next();
     },
     component: () =>
-      import( /* webpackChunkName: "about" */ "@/views/AddRappels.vue"),
+      import( /* webpackChunkName: "about" */ "@/views/AddRappels"),
   },
+  {
+    path: "/drugs",
+    name: "drugsAll",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      else next();
+    },
+    component: () =>
+      import( /* webpackChunkName: "about" */ "@/views/DrugsAll.vue"),
+  },
+  // {
+  //   path: "/drugs/:id/decrement-stock",
+  //   name: "UserEdit",
+  //   component: () =>
+  //     import( /* webpackChunkName: "about" */ "@/views/DrugsAll.vue"),
+  // },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -84,13 +131,13 @@ const routes = [{
     component: () =>
       import("../views/Dashboard.vue"),
     children: [{
-        path: "/users",
+        path: "/users-admin",
         name: "Users",
         component: () =>
-          import( /* webpackChunkName: "about" */ "@/views/UsersAll.vue"),
+          import( /* webpackChunkName: "about" */ "@/views/UsersAdmin.vue"),
       },
       {
-        path: "/drugs",
+        path: "/drugs-admin",
         name: "Drugs",
         beforeEnter: (to, from, next) => {
           // on vérifie l'état de connexion:
@@ -99,10 +146,10 @@ const routes = [{
           else next();
         },
         component: () =>
-          import( /* webpackChunkName: "about" */ "@/views/DrugsAll.vue"),
+          import( /* webpackChunkName: "about" */ "@/views/DrugsAdmin.vue"),
       },
       {
-        path: "/rappels",
+        path: "/rappels-admin",
         name: "Rappels",
         beforeEnter: (to, from, next) => {
           // on vérifie l'état de connexion:
@@ -111,7 +158,7 @@ const routes = [{
           else next();
         },
         component: () =>
-          import( /* webpackChunkName: "about" */ "@/views/RappelsAll.vue"),
+          import( /* webpackChunkName: "about" */ "@/views/RappelsAdmin.vue"),
       },
     ]
   },

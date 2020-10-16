@@ -13,20 +13,20 @@
       </figure>
     </div>
     <div class="min">
-      <section class="min-rappel">
+      <section class="min-rappel" v-if="currentUser">
         <h2 class="min-title">Mes rappels</h2>
         <ul v-for="(rappel, i) in rappels" :key="i">
-          <li class="min-list">{{ rappel.title }}</li>
-          <li class="min-list">
+          <li v-if="currentUser" class="min-list">{{ rappel.title }}</li>
+          <li v-if="currentUser" class="min-list">
             le : {{ moment(rappel.date_last_rappel).format("DD-MM-YYYY") }}
           </li>
         </ul>
         <!-- <button class="btn-rappel" @click="decrementStock">Injection ok</button> -->
       </section>
-      <section class="min-drug">
+      <section class="min-drug" v-if="currentUser">
         <h2 class="min-title">Stock</h2>
         <ul v-for="(drug, i) in drugs" :key="i">
-          <li class="min-list">Il reste {{ drug.quantite }} {{ drug.name }}</li>
+          <li v-if="currentUser" class="min-list">Il reste {{ drug.quantite }}{{ drug.name }}</li>
         </ul>
       </section>
     </div>
@@ -91,6 +91,9 @@ export default {
     display: flex;
     /* flex-direction: column; */
     align-items: center;
+    background-image: url("../../assets/bleu.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   .min {
     display: flex;
@@ -127,7 +130,7 @@ export default {
   }
 
   .jauge {
-    width: 100%;
+    width: 40%;
     /* height: 100%; */
   }
   .min-list {

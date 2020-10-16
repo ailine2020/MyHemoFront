@@ -49,7 +49,7 @@ export default {
     width: 100%;  
   }
   .icons {
-    color: #91c0bb;
+    color: #c4d5c5;
     font-size: 1.875rem;
     margin-left: 1rem;
   }

@@ -29,7 +29,7 @@ export default {
 @media screen and (min-width: 980px) {
   footer {
     margin-top: 15vh;
-    background: rgba(40, 40, 40, 0.2);
+    background: #2c3950;
     display: flex;
     justify-content: space-between;
   }
@@ -38,7 +38,7 @@ export default {
     margin-left: 20px;
     width: 30px;
     height: 30px;
-    color: #91c0bb;
+    color: #c4d5c5;
   }
 
   .reseaux {
@@ -48,7 +48,7 @@ export default {
 
   .liens > a {
     text-decoration: none;
-    color: #91c0bb;
+    color: #c4d5c5;
   }
 
   .nav-footer,

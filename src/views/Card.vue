@@ -1,14 +1,14 @@
 <template>
   <div>
-    <form @submit.prevent="upload">
-      <label for="recto">recto</label>
+    <form @submit.prevent="upload" class="upload-card">
+      <label for="recto" class="r-v">recto</label>
       <input
         class="is-hidden"
         id="recto"
         type="file"
         @change="fileSelectRecto"
       />
-      <label for="verso">verso</label>
+      <label for="verso" class="r-v">verso</label>
       <input
         class="is-hidden"
         id="verso"
@@ -17,9 +17,9 @@
       />
       <button>Upload</button>
     </form>
-    <figure v-if="currentUser">
-      <img :src="currentUser.card.recto"/>
-      <img :src="currentUser.card.verso"/>
+    <figure class="cards">
+      <img class="card" :src="currentUser.card.recto" alt="card" />
+      <img class="card" :src="currentUser.card.verso" alt="card" />
     </figure>
   </div>
 </template>
@@ -68,8 +68,7 @@ export default {
           console.error(err);
         });
       this.getCard();
-            location.href = "/card";
-
+      // location.href = "/card";
     },
     async getCard() {
       const apiRes = await axios.get(
@@ -82,7 +81,7 @@ export default {
       // this.versoImage = URL.createObjectURL(this.verso);
       console.log("---------------++++", apiRes.data);
     }
-  },
+  }
   // created() {
   //   try {
   //     this.getCard();
@@ -94,7 +93,23 @@ export default {
 </script>
 
 <style>
+.r-v {
+  cursor: pointer;
+}
 .is-hidden {
   display: none;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  width: 50%;
+  height: 50%;
+}
+.upload-card {
+  margin-top: 30px;
 }
 </style>

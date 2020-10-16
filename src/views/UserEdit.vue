@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent="editUser" class="edit-user" v-if="currentUser">
-      <h3>Edit User</h3>
+      <h3>MES INFOS</h3>
       <label for="username">Name</label>
       <input type="text" id="name" v-model="name" />
       <label for="email">Email</label>
@@ -9,7 +9,6 @@
       <label for="password">Password</label>
       <input type="password" id="password" v-model="password" />
       <Avatar v-if="currentUser" :avatar="currentUser.avatar" :isEditable="true" />
-      <input type="text" id="role" v-model="role" />
       <button>ok</button>
     </form>
   </div>
@@ -27,13 +26,12 @@ export default {
       email: "",
       password: "",
       avatar: "",
-      role: "",
       isEditMode: false
     };
   },
   methods: {
     async editUser() {
-      const { name, email, password, avatar, role } = this.$data;
+      const { name, email, password, avatar } = this.$data;
       try {
         const res = await axios.patch(
           process.env.VUE_APP_BACKEND_URL + `/users/${this.$store.getters["user/current"]._id}`,
@@ -42,7 +40,6 @@ export default {
             email,
             password,
             avatar,
-            role
           }
         );
         console.log(res.data);
@@ -58,7 +55,6 @@ export default {
       this.email = res.data.email;
       this.password = res.data.password;
       this.avatar = res.data.avatar;
-      this.role = res.data.role;
       // console.log(res.data);
     }
   },
