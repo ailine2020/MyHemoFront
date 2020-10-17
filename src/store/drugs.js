@@ -34,7 +34,7 @@ export default {
         async getDrugs(ctx) {
             const userId = ctx.rootState.user.currentUser._id;
             try {
-                const apiRes = await handler.get(`/drugs/user/${userId}`);
+                const apiRes = await handler.get(`drugs/user/${userId}`);
                 ctx.commit("setDrugs", apiRes.data);
             } catch (err) {
                 console.error(err)
@@ -64,7 +64,7 @@ export default {
         async decrementStock(ctx, drugId) {
             try {
                 const apiRes = await handler.patch(
-                    process.env.VUE_APP_BACKEND_URL + `/drugs/${drugId}/decrement-stock`);
+                    process.env.VUE_APP_BACKEND_URL + `drugs/${drugId}/decrement-stock`);
                 ctx.commit("setQuantite", apiRes.data);
             } catch (err) {
                 console.error(err);

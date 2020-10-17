@@ -36,7 +36,7 @@ export default {
         signin(context, userInfos) {
             return new Promise((resolve, reject) => {
                 handler
-                    .post("/api/auth/signin", userInfos)
+                    .post("api/auth/signin", userInfos)
                     .then(res => {
                         auth.setLocalAuthToken(res.data.token);
                         context.commit("setCurrent", res.data.user);
@@ -71,7 +71,7 @@ export default {
         },
         getUserByToken(context, callback) {
             axios
-                .get(process.env.VUE_APP_BACKEND_URL + "/api/auth/get-user-by-token", {
+                .get(process.env.VUE_APP_BACKEND_URL + "api/auth/get-user-by-token", {
 
                     // ci dessus: TRES IMPORTANT : sans l'option withCredentials, le token (JWT)
                     // n'est pas envoyé avec la requête et le serveur ne saura pas que l'user est déjà connecté
