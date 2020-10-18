@@ -31,7 +31,7 @@ export default {
         async getRappels(ctx) {
             const userId = ctx.rootState.user.currentUser._id;
             try {
-                const apiRes = await handler.get(`/rappels/user/${userId}`);
+                const apiRes = await handler.get(`rappels/user/${userId}`);
                 ctx.commit("setRappels", apiRes.data);
             } catch (err) {
                 console.error(err)
@@ -42,7 +42,7 @@ export default {
                 const userId = ctx.rootState.user.currentUser._id;
                 handler.post(
                         process.env.VUE_APP_BACKEND_URL +
-                        `/rappels/user/${userId}`,
+                        `rappels/user/${userId}`,
                         rappel,
                     ).then(resolve)
                     .catch(err => reject(err.message));
@@ -52,7 +52,7 @@ export default {
             return new Promise((resolve, reject) => {
                 handler.delete(
                         process.env.VUE_APP_BACKEND_URL +
-                        `/rappels/${rappelId}`,
+                        `rappels/${rappelId}`,
                         rappelId
                     ).then(resolve)
                     .catch(err => reject(err.message));

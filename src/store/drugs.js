@@ -45,7 +45,7 @@ export default {
                 const userId = ctx.rootState.user.currentUser._id;
                 handler.post(
                         process.env.VUE_APP_BACKEND_URL +
-                        `/drugs/user/${userId}`,
+                        `drugs/user/${userId}`,
                         drug,
                     ).then(resolve)
                     .catch(err => reject(err.message));
@@ -55,7 +55,7 @@ export default {
             return new Promise((resolve, reject) => {
                 handler.delete(
                         process.env.VUE_APP_BACKEND_URL +
-                        `/drugs/${drugId}`,
+                        `drugs/${drugId}`,
                         drugId
                     ).then(resolve)
                     .catch(err => reject(err.message));

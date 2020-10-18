@@ -85,7 +85,7 @@ export default {
         getAll(context) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get("/users/")
+                    .get("users/")
                     .then(res => {
                         context.commit("setUsers", res.data);
                         resolve(res);
@@ -97,7 +97,7 @@ export default {
         async update(context, userInfos) {
             return new Promise((resolve, reject) => {
                 axios
-                    .patch(`/users/${userInfos._id}`, userInfos)
+                    .patch(`users/${userInfos._id}`, userInfos)
                     .then(res => {
                         context.commit("setCurrent", res.data);
                         resolve(res);
