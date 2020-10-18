@@ -41,7 +41,7 @@ export default {
 <style scoped>
 @media screen and (max-width: 979px) {
   .nav-footer {
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     display: flex;
     justify-content: space-around;

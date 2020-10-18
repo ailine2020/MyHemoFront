@@ -54,13 +54,11 @@ export default {
       this.versoImage = URL.createObjectURL(this.verso);
     },
     upload() {
-      console.log("form ?");
       const fd = new FormData();
       fd.append("card", this.recto);
       fd.append("card", this.verso);
       this.handler
         .patch("/card/user/" + this.$store.getters["user/current"]._id, fd)
-        // .post("/card/user/" + this.$store.getters["user/current"]._id, fd)
         .then(res => {
           console.log(res);
         })
