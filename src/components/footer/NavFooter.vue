@@ -48,7 +48,7 @@ export default {
     justify-content: space-around;
     align-items: center;
     background: #2c3e50;
-    height: 70px;
+    height: 80px;
     width: 100%;
     /* margin-top: 100px; */
   }
