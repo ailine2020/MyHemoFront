@@ -2,11 +2,8 @@
   <!-- <div id="burger" :class="{ 'active' : isClassActive }" @click="toggleNavMobile">
       <span ></span>
   </div>-->
-  <font-awesome-icon
-    id="burger"
-    icon="bars"
-    @click="toggleNavMobile"
-  />
+
+  <font-awesome-icon id="burger" icon="bars" @click="toggleNavMobile" />
 </template>
 
 <script>

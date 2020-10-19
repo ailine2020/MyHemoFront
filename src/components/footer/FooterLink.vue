@@ -1,18 +1,18 @@
 <template>
   <footer>
     <article class="liens">
-      <a href="/plan-du-site">Plan du site</a>
-      <a href="/mentions-legales">Mentions légales</a>
+      <router-link to="plan-du-site">Plan du site</router-link>
+      <router-link to="cgu">Conditions générales d'utilisation</router-link>
       <router-link to="contact">Contact</router-link>
     </article>
     <article class="reseaux">
       <a href="https://www.facebook.com/">
         <img src="../../assets/FB.svg" alt="facebook" class="rs" />
       </a>
-      <a href>
+      <a href="https://www.facebook.com/">
         <img src="../../assets/TWITTER.svg" alt="twitter" class="rs" />
       </a>
-      <a href>
+      <a href="https://www.facebook.com/">
         <img src="../../assets/INSTAGRAM.svg" alt="instagram" class="rs" />
       </a>
     </article>
@@ -28,6 +28,7 @@ export default {
 <style>
 @media screen and (min-width: 980px) {
   footer {
+    bottom: 0;
     margin-top: 15vh;
     background: #2c3950;
     display: flex;

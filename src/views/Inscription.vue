@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="signup" class="form">
+  <form @submit.prevent="cguChecked" class="form">
     <h1 class="title">Signup</h1>
     <label for="name" class="label">Name</label>
     <input
@@ -25,6 +25,12 @@
       v-model="user.password"
       autocomplete="current-password"
     />
+    <label for="checkbox"
+      ><router-link to="/cgu"
+        >Conditions générales d'utilisation</router-link
+      ></label
+    >
+    <input id="checkbox" type="checkbox" checked v-model="checked" />
     <Avatar v-if="user.avatar" :avatar="user.avatar" />
     <button class="btn">ok</button>
     <hr />
@@ -47,7 +53,8 @@ export default {
         password: "12345",
         role: "user",
         avatar: ""
-      }
+      },
+      checked: ""
     };
   },
   components: {
@@ -66,6 +73,15 @@ export default {
       if (this.user.avatar) fd.append("avatar", this.user.avatar);
       this.$store.dispatch("user/signup", fd);
       this.$router.push("/signin");
+    },
+
+    // manque catch!!
+    cguChecked() {
+      if (!this.checked) {
+        alert("Merci d'accepter les conditions générales!");
+      } else {
+        this.signup();
+      }
     }
   }
 };

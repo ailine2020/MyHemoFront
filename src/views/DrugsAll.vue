@@ -6,7 +6,7 @@
         Pas de médicaments enregistrés pour le moment
       </p>
       <ul v-for="(drug, i) in drugs" :key="i" class="drug">
-        <li v-if="Boolean(currentUser)" class="drug-list">
+        <li v-if="currentUser" class="drug-list">
           Créé par: {{ drug.author.name }}
         </li>
         <li class="drug-list">Name: {{ drug.name }}</li>
@@ -53,13 +53,10 @@ export default {
       }
     },
     async decrementStock(id) {
-      console.log("eh! oh!", this.$route, id);
-
       try {
         await this.$store.dispatch("drugs/decrementStock", id);
       } catch (err) {
         console.error(err);
-        console.log("coucou", err);
       }
     }
   },

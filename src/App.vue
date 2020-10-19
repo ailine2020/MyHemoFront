@@ -54,4 +54,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+.main {
+ min-height: calc(100vh - 200px);
+ height: auto;
+}
 </style>

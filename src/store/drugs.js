@@ -18,9 +18,6 @@ export default {
         current(state) {
             return state.currentDrug;
         },
-        quantite(state) {
-            return state.quantite;
-        }
     },
     mutations: {
         setDrugs(state, drugs) {
@@ -68,7 +65,6 @@ export default {
                 ctx.commit("setQuantite", apiRes.data);
             } catch (err) {
                 console.error(err);
-                console.log("aaaaaa", err);
             }
         }
     },

@@ -27,7 +27,7 @@
         <h2 class="min-title">Stock</h2>
         <ul v-for="(drug, i) in drugs" :key="i">
           <li v-if="currentUser" class="min-list">
-            Il reste {{ drug.quantite }}{{ drug.name }}
+            Il reste {{ drug.quantite }} {{ drug.name }}
           </li>
         </ul>
       </section>
@@ -85,13 +85,10 @@ export default {
   .nav-header {
     display: none;
   }
-  /* .main {
-    display: flex;
-    flex-direction: column;
-  } */
   .main-mobile {
+    /* min-height: calc(100vh - 200px); */
+    height: 100vh;
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
     background-image: url("../../assets/bleu.jpg");
     background-repeat: no-repeat;

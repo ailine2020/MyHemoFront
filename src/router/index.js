@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 const routes = [{
     path: "/",
     name: "Home",
-    component: () => import("../views/Home.vue")
+    component: () => import( /* webpackChunkName: "home" */ "@/views/Home.vue")
   },
   {
     path: "/contact",
@@ -16,7 +16,25 @@ const routes = [{
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import( "../views/Contact.vue")
+      import( /* webpackChunkName: "contact" */ "@/views/Contact.vue")
+  },
+  {
+    path: "/cgu",
+    name: "Conditions generales d'utilisation",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import( /* webpackChunkName: "cgu" */ "@/views/Cgu.vue")
+  },
+  {
+    path: "/plan-du-site",
+    name: "Plan du site",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import( /* webpackChunkName: "planDuSite" */ "@/views/PlanDuSite.vue")
   },
   {
     path: "/card",
@@ -28,7 +46,7 @@ const routes = [{
       else next();
     },
     component: () =>
-      import("../views/Card.vue")
+      import( /* webpackChunkName: "card" */ "@/views/Card.vue")
   },
   {
     path: "/signin",
@@ -40,7 +58,7 @@ const routes = [{
       else next();
     },
     component: () =>
-      import("../views/Connexion.vue")
+      import( /* webpackChunkName: "signin" */ "@/views/Connexion.vue")
   },
   {
     path: "/signup",
@@ -52,7 +70,7 @@ const routes = [{
       else next();
     },
     component: () =>
-      import("@/views/Inscription.vue")
+      import( /* webpackChunkName: "signup" */ "@/views/Inscription.vue")
   },
   {
     path: "/users",
@@ -64,7 +82,7 @@ const routes = [{
       else next();
     },
     component: () =>
-      import( /* webpackChunkName: "about" */ "@/views/UsersAll.vue"),
+      import( /* webpackChunkName: "users" */ "@/views/UsersAll.vue"),
   },
   {
     path: "/users/:id",
@@ -76,7 +94,7 @@ const routes = [{
       else next();
     },
     component: () =>
-      import( /* webpackChunkName: "about" */ "@/views/UserEdit.vue"),
+      import( /* webpackChunkName: "userEdit" */ "@/views/UserEdit.vue"),
   },
   {
     path: "/rappels",
@@ -88,7 +106,7 @@ const routes = [{
       else next();
     },
     component: () =>
-      import( /* webpackChunkName: "about" */ "@/views/RappelsAll.vue"),
+      import( /* webpackChunkName: "rappels" */ "@/views/RappelsAll.vue"),
   },
   {
     path: "/add-rappels",
@@ -100,7 +118,7 @@ const routes = [{
       else next();
     },
     component: () =>
-      import( /* webpackChunkName: "about" */ "@/views/AddRappels"),
+      import( /* webpackChunkName: "addRappels" */ "@/views/AddRappels"),
   },
   {
     path: "/drugs",
@@ -111,14 +129,8 @@ const routes = [{
       else next();
     },
     component: () =>
-      import( /* webpackChunkName: "about" */ "@/views/DrugsAll.vue"),
+      import( /* webpackChunkName: "drugs" */ "@/views/DrugsAll.vue"),
   },
-  // {
-  //   path: "/drugs/:id/decrement-stock",
-  //   name: "UserEdit",
-  //   component: () =>
-  //     import( /* webpackChunkName: "about" */ "@/views/DrugsAll.vue"),
-  // },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -134,7 +146,7 @@ const routes = [{
         path: "/users-admin",
         name: "Users",
         component: () =>
-          import( /* webpackChunkName: "about" */ "@/views/UsersAdmin.vue"),
+          import( /* webpackChunkName: "dashboard" */ "@/views/UsersAdmin.vue"),
       },
       {
         path: "/drugs-admin",
@@ -146,7 +158,7 @@ const routes = [{
           else next();
         },
         component: () =>
-          import( /* webpackChunkName: "about" */ "@/views/DrugsAdmin.vue"),
+          import( /* webpackChunkName: "drugsAdmin" */ "@/views/DrugsAdmin.vue"),
       },
       {
         path: "/rappels-admin",
@@ -158,14 +170,14 @@ const routes = [{
           else next();
         },
         component: () =>
-          import( /* webpackChunkName: "about" */ "@/views/RappelsAdmin.vue"),
+          import( /* webpackChunkName: "rappelsAdmin" */ "@/views/RappelsAdmin.vue"),
       },
     ]
   },
   {
     path: "*",
     name: "NotFound",
-    component: () => import("../views/NotFound.vue")
+    component: ( /* webpackChunkName: "notFound" */ ) => import("../views/NotFound.vue")
   }
 ];
 

@@ -56,7 +56,7 @@ export default {
           periodicity,
           date_last_rappel
         });
-        this.$router.push("rappels");
+        this.$router.push("add-rappels");
       } catch (err) {
         console.error(err);
       }

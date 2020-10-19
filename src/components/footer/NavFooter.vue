@@ -41,14 +41,16 @@ export default {
 <style scoped>
 @media screen and (max-width: 979px) {
   .nav-footer {
-    /* position: fixed; */
+   position: sticky;
+    clear: both;
     bottom: 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
     background: #2c3e50;
     height: 70px;
-    width: 100%;  
+    width: 100%;
+    /* margin-top: 100px; */
   }
   .icons {
     color: #c4d5c5;
