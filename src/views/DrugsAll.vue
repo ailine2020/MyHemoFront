@@ -1,5 +1,5 @@
 <template>
-  <main class="main-drugs">
+  <main class="main">
     <h2>MES MEDICAMENTS</h2>
     <section class="drugs-all">
       <p v-if="!drugs || !drugs.length">

@@ -63,7 +63,7 @@ export default {
 </script>
 
 <style scoped>
-.icons {
+/* .icons {
   height: 50px;
   width: 50px;
   cursor: pointer;
@@ -91,5 +91,5 @@ export default {
 #card-hemo {
   width: 100px;
   height: 70px;
-}
+} */
 </style>

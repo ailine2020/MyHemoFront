@@ -42,6 +42,15 @@ import {
   faPlusCircle
 } from "@fortawesome/free-solid-svg-icons";
 import {
+  faFacebook
+} from "@fortawesome/free-brands-svg-icons";
+import {
+  faTwitter
+} from "@fortawesome/free-brands-svg-icons";
+import {
+  faInstagram
+} from "@fortawesome/free-brands-svg-icons";
+import {  
   FontAwesomeIcon
 } from "@fortawesome/vue-fontawesome";
 
@@ -57,6 +66,9 @@ library.add(faPrescriptionBottleAlt);
 library.add(faUserSlash);
 library.add(faAddressCard);
 library.add(faPlusCircle);
+library.add(faFacebook);
+library.add(faTwitter);
+library.add(faInstagram);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

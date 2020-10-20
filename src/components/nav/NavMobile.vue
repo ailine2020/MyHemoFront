@@ -64,9 +64,9 @@ export default {
   #nav-mobile {
     position: fixed;
     right: 0;
-    /* height: 72%; */
+    /* height: auto; */
     min-height: calc(100vh - 200px);
-    top: 20.5%;
+    top: 125px;
     background: #c4d5c5;
     display: flex;
     flex-direction: column;

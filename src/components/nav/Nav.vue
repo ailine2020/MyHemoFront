@@ -1,7 +1,9 @@
 <template>
   <header id="nav-logo">
-    <figure id="logo">
-      <img src="../../assets/Logo4.svg" alt="logo" class="logo" />
+    <figure class="logo">
+      <router-link to="/">
+        <img src="../../assets/Logo4.svg" alt="logo" class="logo" />
+      </router-link>
     </figure>
     <nav class="nav-header">
       <router-link to="/">
@@ -90,7 +92,7 @@ export default {
 
 .icons {
   color: #c4d5c5;
-  font-size: 2.5rem;
+  font-size: 1.875rem;
   margin-right: 3.75rem;
 }
 .logo {
@@ -103,5 +105,9 @@ export default {
   .nav-header {
     display: none;
   }
+.logo{
+  display: block;
+  margin: auto;
+}
 }
 </style>

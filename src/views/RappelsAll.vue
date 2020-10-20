@@ -1,5 +1,5 @@
 <template>
-  <main class="section-rappel">
+  <main class="main">
     <h2>MES RAPPELS</h2>
     <section class="rappels-all">
       <p v-if="!rappels.length">Pas de rappel enregistré pour le moment</p>

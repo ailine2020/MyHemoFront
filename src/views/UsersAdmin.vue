@@ -1,22 +1,33 @@
 <template>
-  <div>
-    <h2>Manage Users</h2>
-    <ul v-for="(user,i) in users" :key="i" class="user">
-      <li v-if="user" class="user-list">Name: {{user.name}}</li>
-      <li v-if="user" class="user-list">Email: {{user.email}}</li>
-      <img id="avatar" v-if="user" class="user-list" :src="user.avatar" alt="avatar" />
-      <li>
-        <router-link class="link" :to="'/users/' + user._id">
-          <span class="icons">
-            <font-awesome-icon icon="edit" />
+  <main class="main">
+    <h2>MANAGE USERS</h2>
+    <section class="users-all-admin">
+      <p v-if="!users || !users.length">
+        Pas d'utilisateurs enregistrés pour le moment
+      </p>
+      <ul v-for="(user, i) in users" :key="i" class="user-admin">
+        <li v-if="user" class="user-list">Name: {{ user.name }}</li>
+        <li v-if="user" class="user-list">Email: {{ user.email }}</li>
+        <!-- <img
+          id="avatar"
+          v-if="user"
+          class="user-list"
+          :src="user.avatar"
+          alt="avatar"
+        /> -->
+        <li class="icons-manage">
+          <router-link class="link" :to="'/users/' + user._id">
+            <span>
+              <font-awesome-icon class="icons-admin" icon="edit" />
+            </span>
+          </router-link>
+          <span @click="deleteUsers(user._id)">
+            <font-awesome-icon class="icons-admin" icon="trash-alt" />
           </span>
-        </router-link>
-        <span class="icons" @click="deleteUsers(user._id)">
-          <font-awesome-icon icon="trash-alt" />
-        </span>
-      </li>
-    </ul>
-  </div>
+        </li>
+      </ul>
+    </section>
+  </main>
 </template>
 <script>
 import axios from "axios";
@@ -62,24 +73,14 @@ export default {
 </script>
 
 <style scoped>
-.icons {
-  height: 50px;
-  width: 50px;
+.icons-admin {
+  height: 20px;
+  width: 20px;
   cursor: pointer;
+  color: #2c3950;
 }
-.user {
-  border: 1px solid;
-  border-radius: 0.3rem;
-  list-style: none;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.user-list {
-  border: 1px solid;
+.icons-manage {
+  list-style-type: none;
 }
 
 #avatar {
@@ -87,8 +88,23 @@ export default {
   width: 70px;
 }
 
-#card-hemo {
-  width: 100px;
-  height: 70px;
+.user-admin {
+  border: 2px solid #2c3950;
+  padding: 20px;
+}
+
+.users-all-admin {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 30px;
+}
+.user-list {
+  padding: 10px;
+  list-style-type: none;
+}
+h2 {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 </style>

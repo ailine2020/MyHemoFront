@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <main class="main">
     <h1>Dashboard</h1>
-    <p v-if="currentUser">Hello {{currentUser.name}}!</p>
+    <p v-if="currentUser">Hello {{ currentUser.name }}!</p>
     <NavDashboard />
     <router-view></router-view>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -28,4 +28,8 @@ export default {
 </script>
 
 <style>
+.main {
+  min-height: calc(100vh - 200px);
+  height: auto;
+}
 </style>

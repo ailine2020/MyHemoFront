@@ -47,22 +47,18 @@ export default {
 
 <style>
 .drug {
-  display: flex;
-  flex-direction: column;
-  margin: 30px;
-  justify-content: center;
   border: 2px solid #2c3950;
   padding: 20px;
-  list-style-type: none;
-  width: 50%;
 }
 .drugs-all {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 30px;
 }
 .drug-list {
   padding: 10px;
+  list-style-type: none;
 }
 h2,
 h3 {

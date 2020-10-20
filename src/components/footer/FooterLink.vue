@@ -7,13 +7,19 @@
     </article>
     <article class="reseaux">
       <a href="https://www.facebook.com/">
-        <img src="../../assets/FB.svg" alt="facebook" class="rs" />
+        <span class="icons-footer">
+          <font-awesome-icon :icon="['fab', 'facebook']"/>
+        </span>
       </a>
-      <a href="https://www.facebook.com/">
-        <img src="../../assets/TWITTER.svg" alt="twitter" class="rs" />
+      <a href="https://www.twitter.com/">
+        <span class="icons-footer">
+          <font-awesome-icon :icon="['fab', 'twitter']"/>
+        </span>
       </a>
-      <a href="https://www.facebook.com/">
-        <img src="../../assets/INSTAGRAM.svg" alt="instagram" class="rs" />
+      <a href="https://www.instagram.com/">
+        <span class="icons-footer">
+          <font-awesome-icon :icon="['fab', 'instagram']"/>
+        </span>
       </a>
     </article>
   </footer>
@@ -35,10 +41,9 @@ export default {
     justify-content: space-between;
   }
 
-  .rs {
+  .icons-footer {
     margin-left: 20px;
-    width: 30px;
-    height: 30px;
+    font-size: 1.875rem;
     color: #c4d5c5;
   }
 
@@ -47,7 +52,7 @@ export default {
     flex-direction: row;
   }
 
-  .liens > a {
+  a {
     text-decoration: none;
     color: #c4d5c5;
   }
